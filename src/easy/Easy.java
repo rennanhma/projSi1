@@ -10,13 +10,9 @@ public class Easy {
 	}
 
 	public void criarUsuario(String login, String senha, String nome,
-			String endereco, String email) throws Exception {
-		if (nome == "" || nome == null) {
-			throw new Exception("nome inválido");
-		} else {
+			String endereco, String email) throws Exception  {
 
 			sistema.criarUsuario(login, senha, nome, endereco, email);
-		}
 	}
 
 	public void encerrarSistema() {

@@ -18,8 +18,9 @@ public class SistemaDeCarona {
 
 	public void criarUsuario(String login, String senha, String nome,
 			String endereco, String email) throws Exception {
-		Usuario novoUsuario = new Usuario(login, senha, nome, endereco, email);
-		usuarios.add(novoUsuario);
+			Usuario novoUsuario = new Usuario(login, senha, nome, endereco, email);
+			usuarios.add(novoUsuario);
+			
 	}
 
 	public void encerrarSistema() {

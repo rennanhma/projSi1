@@ -23,7 +23,6 @@ public class TesteEasy {
 		EasyAcceptFacade eaFacade = new EasyAcceptFacade(siTeste, files);
 
 		eaFacade.executeTests();
-
 		System.out.println(eaFacade.getCompleteResults());
 	}
 

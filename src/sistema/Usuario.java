@@ -8,34 +8,34 @@ public class Usuario {
 	private String nome;
 	private String endereco;
 	private String email;
+	
 
 	public Usuario(String login, String senha, String nome, String endereco,
 			String email) throws Exception {
 		setLogin(login);
-		setSenha(senha);
-		setNome(nome);
-		setEndereco(endereco);
-		setEmail(email);
+		this.senha = senha;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.email = email;
 	}
 
 	public String getLogin() {
-
 		return login;
 	}
 
-	private void setLogin(String login) throws Exception {
-		if (login == "" || login == null) {
+	public void setLogin(String login) throws Exception {
+		if ((login == null) || (login.equals(""))) {
 			throw new Exception("Login inválido");
-		} else {
-			this.login = login;
-		}
+			}else{
+				this.login = login;
+			}
 	}
 
 	public String getSenha() {
 		return senha;
 	}
 
-	private void setSenha(String senha) {
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 
@@ -43,7 +43,7 @@ public class Usuario {
 		return nome;
 	}
 
-	private void setNome(String nome) throws Exception {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
@@ -51,7 +51,7 @@ public class Usuario {
 		return endereco;
 	}
 
-	private void setEndereco(String endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 
@@ -59,9 +59,8 @@ public class Usuario {
 		return email;
 	}
 
-	private void setEmail(String email) throws Exception {
+	public void setEmail(String email) {
 		this.email = email;
-
 	}
 
 }
