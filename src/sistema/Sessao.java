@@ -25,5 +25,7 @@ public class Sessao {
 	public UUID getId() {
 		return id;
 	}
+	
+	
 
 }

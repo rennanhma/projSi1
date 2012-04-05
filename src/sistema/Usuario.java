@@ -1,6 +1,8 @@
 package sistema;
 
+
 //throw new Exception("");
+
 public class Usuario {
 
 	private String login;
@@ -12,11 +14,12 @@ public class Usuario {
 
 	public Usuario(String login, String senha, String nome, String endereco,
 			String email) throws Exception {
-		setLogin(login);
+		this.login = login;
 		this.senha = senha;
 		this.nome = nome;
 		this.endereco = endereco;
 		this.email = email;
+		
 	}
 
 	public String getLogin() {
@@ -62,5 +65,7 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
 
 }
