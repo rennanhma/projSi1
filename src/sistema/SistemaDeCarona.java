@@ -19,7 +19,11 @@ public class SistemaDeCarona {
 	public void criarUsuario(String login, String senha, String nome,
 			String endereco, String email) throws Exception {
 			Usuario novoUsuario = new Usuario(login, senha, nome, endereco, email);
+			if ((login == null) || (login.equals(""))) {
+				throw new Exception("Login inválido");
+				}else{
 			usuarios.add(novoUsuario);
+				}
 			
 	}
 

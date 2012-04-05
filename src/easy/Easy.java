@@ -10,9 +10,9 @@ public class Easy {
 	}
 
 	public void criarUsuario(String login, String senha, String nome,
-			String endereco, String email) throws Exception  {
+			String endereco, String email) throws Exception {
 
-			sistema.criarUsuario(login, senha, nome, endereco, email);
+		sistema.criarUsuario(login, senha, nome, endereco, email);
 	}
 
 	public void encerrarSistema() {
