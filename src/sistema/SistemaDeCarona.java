@@ -27,4 +27,9 @@ public class SistemaDeCarona {
 		System.out.println("Sistema Encerrado");
 	}
 
+	public void abrirSessao(String login, String senha) {
+		// TODO Criar
+		
+	}
+
 }

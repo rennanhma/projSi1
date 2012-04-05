@@ -19,5 +19,8 @@ public class Easy {
 
 		sistema.encerrarSistema();
 	}
+	public void abrirSessao(String login,String senha){
+		sistema.abrirSessao(login, senha);
+	}
 
 }
