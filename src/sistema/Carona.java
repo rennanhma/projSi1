@@ -1,6 +1,7 @@
 package sistema;
 
 import java.util.GregorianCalendar;
+import java.util.UUID;
 
 /*
 #US02 - Cadastro de caronas. Permitir o cadastro de caronas no perfil do usuário. 
@@ -11,11 +12,37 @@ import java.util.GregorianCalendar;
  */
 
 public class Carona {
-	private String origem, destino, data, hora;
+	private String origem, destino, data, hora, idDaCarona;
 	private int vagas;
 	private GregorianCalendar dataAtual, horaAtual, dataHoraCarona;
 	
 	
+	
+	public Carona(String origem, String destino, String data, String hora, int vagas){
+		
+		   this.origem = origem;
+		   this.destino = destino;
+		   this.data = data;
+		   this.hora = hora;
+		   this.vagas = vagas;
+		   idDaCarona = UUID.randomUUID().toString();
+		   
+		   
+		
+		
+	}
+	
+	
+	public String getIdDaCarona() {
+		return idDaCarona;
+	}
+
+
+	public void setIdDaCarona(String idDaCarona) {
+		this.idDaCarona = idDaCarona;
+	}
+
+
 	public boolean dataHorarioValido(String data, String hora)
 	{
 		dataAtual = new GregorianCalendar();
@@ -43,11 +70,41 @@ public class Carona {
 		dataHoraCarona = new GregorianCalendar(ano, mes, dia, horas, minutos);
 		return dataHoraCarona;
 	}
-	
-	public static void main(String[] args) {
-		Carona c = new Carona();
-		GregorianCalendar a = new GregorianCalendar();
-		System.out.println(a.getTime());
-		System.out.println(c.dataHorarioValido("19/14/2011", "12:22"));
+	public String getOrigem() {
+		return origem;
 	}
+	public void setOrigem(String origem) {
+		this.origem = origem;
+	}
+	public String getDestino() {
+		return destino;
+	}
+	public void setDestino(String destino) {
+		this.destino = destino;
+	}
+	public String getData() {
+		return data;
+	}
+	public void setData(String data) {
+		this.data = data;
+	}
+	public String getHora() {
+		return hora;
+	}
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+	public int getVagas() {
+		return vagas;
+	}
+	public void setVagas(int vagas) {
+		this.vagas = vagas;
+	}
+	
+//	public static void main(String[] args) {
+		//Carona c = new Carona();
+	//	GregorianCalendar a = new GregorianCalendar();
+		//System.out.println(a.getTime());
+		//System.out.println(c.dataHorarioValido("19/14/2011", "12:22"));
+//	}
 }

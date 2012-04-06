@@ -5,7 +5,7 @@ import java.util.UUID;
 public class Sessao {
 	String login;
 	String senha;
-	UUID id;
+	String id;
 
 	public Sessao(String login, String senha) {
 		boolean iniciada = false;
@@ -14,15 +14,15 @@ public class Sessao {
 		this.id = gerarId();
 	}
 
-	private UUID gerarId() {
-		return UUID.randomUUID();
+	private String gerarId() {
+		return UUID.randomUUID().toString();
 	}
 
 	public String getLogin() {
 		return login;
 	}
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 	

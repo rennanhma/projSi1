@@ -8,6 +8,11 @@ public class SistemaDeCarona {
 	 * @param args
 	 */
 	public static List<Usuario> usuarios = new ArrayList<Usuario>();
+	public static List<Carona> listaDeCaronas = new ArrayList<Carona>();
+	public static List<Carona> listaDeCaronasEncontradas = new ArrayList<Carona>();
+	public static Map<String, List> mapaDeCaronas = new HashMap<String, List>(),
+									mapaDeCaronasEncontradas = new HashMap<String, List>();
+	
 
 	public SistemaDeCarona() {
 	}
@@ -39,7 +44,7 @@ public class SistemaDeCarona {
 	}
 
 	// # o método 'abrirSessao' retorna o ID da sessão
-	public UUID abrirSessao(String login, String senha) throws Exception {
+	public String abrirSessao(String login, String senha) throws Exception {
 		if (login == null || login.equals("")) {
 			throw new Exception("Login inválido");
 		}
@@ -214,9 +219,46 @@ public class SistemaDeCarona {
 	
 	public static void main(String[] args) throws Exception {
 	 
-	    
+	    System.out.println(mapaDeCaronas.toString());
 	  
 		
+	}
+	
+   public String cadastrarCarona(String idDaSessao, String origem, String destino, String data, String hora, int vagas){
+	   
+	   Carona novaCarona = new Carona(origem, destino, data, hora, vagas);
+	   listaDeCaronas.add(novaCarona);
+	   mapaDeCaronas.put(idDaSessao, listaDeCaronas);
+	   
+	   return idDaSessao;
+		
+	}
+
+
+	public Map<String, List> localizarCarona(String idDaSessao, String origem,
+			String destino) {
+		List<Carona> listaDeCaronasAux = new ArrayList<Carona>();
+		Carona carona = null;
+		List<Carona> listaDeCaronasEncontradasAux = new ArrayList<Carona>();
+		 for (String chave : mapaDeCaronas.keySet()) {
+			 
+			 listaDeCaronasEncontradasAux.clear();
+			 
+			 listaDeCaronasAux = mapaDeCaronas.get(chave);
+			 
+			 for (int i = 0; i < listaDeCaronasAux.size(); i++) {
+				carona = listaDeCaronasAux.get(i);
+				if (carona.getDestino().equals(destino) && carona.getOrigem().equals(origem)) {
+					listaDeCaronasEncontradasAux.add(carona);
+				}
+			}
+			 mapaDeCaronasEncontradas.put(idDaSessao, listaDeCaronasEncontradasAux);
+		}
+			
+		
+		
+		 
+		return mapaDeCaronasEncontradas;
 	}
 	
 

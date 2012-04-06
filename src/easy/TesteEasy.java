@@ -14,8 +14,8 @@ public class TesteEasy {
 
 		List<String> files = new ArrayList<String>();
 		// Put the us1.txt file into the "test scripts" list
-		files.add("testes/US01.txt");
-		// files.add("testes/US02.txt");
+		//files.add("testes/US01.txt");
+		files.add("testes/US02.txt");
 		// files.add("testes/US03.txt");
 
 		Easy siTeste = new Easy();
