@@ -10,8 +10,8 @@ public class SistemaDeCarona {
 	public static List<Usuario> usuarios = new ArrayList<Usuario>();
 	public static List<Carona> listaDeCaronas = new ArrayList<Carona>();
 	public static List<Carona> listaDeCaronasEncontradas = new ArrayList<Carona>();
-	public static Map<String, List> mapaDeCaronas = new HashMap<String, List>(),
-									mapaDeCaronasEncontradas = new HashMap<String, List>();
+	public static Map<String, List<Carona>> mapaDeCaronas = new HashMap<String, List<Carona>>();
+	Map<String, List<Carona>> mapaDeCaronasEncontradas = new HashMap<String, List<Carona>>();
 	
 
 	public SistemaDeCarona() {
@@ -103,6 +103,93 @@ public class SistemaDeCarona {
 			throw new Exception("Usuário inexistente");
 		}
 	}
+	
+	
+//	public String getAtributoCarona(String idDaSessao, String atributo) throws Exception {
+//		System.out.println(idDaSessao + "  aqui");
+//		excecaoDeAtributosCaronaInvalidos(idDaSessao, atributo);
+//		
+//		if(atributo.equals("origem")){
+//			return buscaCaronaID(idDaSessao).get(0).getOrigem();
+//		}
+//		if(atributo.equals("destino")){
+//			return buscaCaronaID(idDaSessao).get(0).getDestino();
+//		}
+//		if(atributo.equals("data")){
+//			return buscaCaronaID(idDaSessao).get(0).getData();
+//		}
+//		
+//		//vagas retona int, metodo retorna String
+////		if(atributo.equals("vagas")){
+////			return buscaCaronaID(idDaSessao).get(0).getVagas();
+////		}
+//		
+//		throw new Exception("error");
+//		
+//	}
+	
+	public String getAtributoCarona(String idDaSessao, String atributo) throws Exception
+	{
+		String saida = null;
+		excecaoDeAtributosCaronaInvalidos(idDaSessao, atributo);
+
+		List<Carona> listaCarona = buscaCaronaID(idDaSessao);
+		Iterator<Carona> itCarona = listaCarona.iterator();
+		while (itCarona.hasNext())
+		{
+			Carona carona = itCarona.next();
+			if(atributo.equals("origem")){
+				saida = carona.getOrigem();
+			}
+			if(atributo.equals("destino")){
+				saida = carona.getDestino();
+				break;				
+			}
+			if(atributo.equals("data")){
+				saida = carona.getData();
+				break;
+			}
+		}
+		//aceita o primeiro que achar e depois sai.
+		return saida;
+	}
+	
+	public void excecaoDeAtributosCaronaInvalidos(String idDaSessao,String atributo) throws Exception{
+//		if(idDaSessao.equals(null) || idDaSessao.equals(""))
+//		{
+//			throw new Exception("Identificador do carona é inválido");
+//		}
+		if(buscaCaronaID(idDaSessao).equals(null))
+		{
+			throw new Exception("Item inexistente");
+		}
+		else if(atributo.equals(null) || atributo.equals(""))
+		{
+			throw new Exception("Atributo inválido");
+		}
+		else if(!atributo.equals("origem") && !atributo.equals("destino") && !atributo.equals("data") && !atributo.equals("vagas"))
+		{
+			throw new Exception("Atributo inexistente");
+		}
+	}
+	
+	
+	
+	public List<Carona> buscaCaronaID(String idDaSessao)
+	{
+		List<Carona> usuarioEncontrado = null;
+		for (String id : mapaDeCaronas.keySet())
+		{
+			if(idDaSessao.equals(id))
+			{
+				usuarioEncontrado = mapaDeCaronas.get(id);
+				break;
+			}
+		}
+		return usuarioEncontrado;
+	}
+
+	
 	
 	/*public void excecaoUsuarioInxistente(String login) throws Exception{
 		if (buscaUsuario(login) == null) {
@@ -218,10 +305,19 @@ public class SistemaDeCarona {
 	}
 	
 	public static void main(String[] args) throws Exception {
-	 
-	    System.out.println(mapaDeCaronas.toString());
-	  
-		
+		Carona c = new Carona("o", "oi", "oiji", "oij", 2);
+		System.out.println(c.getIdDaCarona().equals(null));
+		SistemaDeCarona s = new SistemaDeCarona();
+		Usuario usuario = new Usuario("dnlgomes", "danilo", "da", "eu", "lakdjf");
+	    usuarios.add(usuario);
+	    System.out.println(s.cadastrarCarona("88", "campina", "joao", "12/03", "12:00", 3));
+	    Map<String, List<Carona>> l = s.localizarCarona("88", "campina", "joao");
+	    List<Carona> a = l.get("88");
+	    System.out.println(a.get(0).getOrigem());
+	    System.out.println(s.getAtributoCarona("88", "destino"));
+		System.out.println(l.get("88").get(0).getIdDaCarona());
+	    
+	    
 	}
 	
    public String cadastrarCarona(String idDaSessao, String origem, String destino, String data, String hora, int vagas){
@@ -235,7 +331,7 @@ public class SistemaDeCarona {
 	}
 
 
-	public Map<String, List> localizarCarona(String idDaSessao, String origem,
+	public Map<String, List<Carona>> localizarCarona(String idDaSessao, String origem,
 			String destino) {
 		List<Carona> listaDeCaronasAux = new ArrayList<Carona>();
 		Carona carona = null;
@@ -261,6 +357,20 @@ public class SistemaDeCarona {
 		return mapaDeCaronasEncontradas;
 	}
 	
-
+	public String getTrajeto(String id)
+	{
+		return buscaCaronaID(id).get(0).getOrigem() + " - " + buscaCaronaID(id).get(0).getDestino();
+	}
+	
+	
+	public String getCarona(String id)
+	{
+		Carona lista = buscaCaronaID(id).get(0);
+		//João Pessoa para Campina Grande, no dia 25/11/2026, as 06:59
+		return lista.getOrigem() + " para " + lista.getDestino() + 
+				", no dia " + lista.getData() + ", as " + lista.getHora();
+		
+		
+	}
 
 }

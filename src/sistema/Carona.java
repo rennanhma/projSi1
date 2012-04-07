@@ -26,7 +26,7 @@ public class Carona {
 		   this.hora = hora;
 		   this.vagas = vagas;
 		   idDaCarona = UUID.randomUUID().toString();
-		   
+
 		   
 		
 		

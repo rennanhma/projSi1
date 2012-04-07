@@ -34,7 +34,7 @@ public class Easy {
 		return sistema.buscaUsuario(login);
 	}
    
-	public Map<String, List> localizarCarona(String idDaSessao,String origem,String destino){
+	public Map<String, List<Carona>> localizarCarona(String idDaSessao,String origem,String destino){
 		
 		return sistema.localizarCarona(idDaSessao,origem,destino);
 	}
@@ -42,6 +42,21 @@ public class Easy {
 	public String cadastrarCarona(String idDaSessao, String origem, String destino, String data, String hora, int vagas)
 	{
 		return sistema.cadastrarCarona(idDaSessao, origem, destino, data, hora, vagas);
+	}
+	
+	public String getAtributoCarona(String idDaSessao, String atributo) throws Exception
+	{
+		return sistema.getAtributoCarona(idDaSessao, atributo);
+	}
+	
+	public String getTrajeto(String id)
+	{
+		return sistema.getTrajeto(id);
+	}
+	
+	public String getCarona(String id)
+	{
+		return sistema.getCarona(id);
 	}
 	// At line 22: Unknown command: carona1ID=cadastrarCarona idSessao= origem="Campina Grande" destino="João Pessoa" data=23/06/2012 hora=16:00 vagas=3
 	/*public cadastraCarona(String idDaSessao, String origem, String destino, String data, String hora, String vagas){
