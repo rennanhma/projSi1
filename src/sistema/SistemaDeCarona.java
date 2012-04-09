@@ -23,15 +23,7 @@ public class SistemaDeCarona {
 	public void criarUsuario(String login, String senha, String nome, String endereco, String email) throws Exception {
 		 
 		 
-		lancaExcecaoDeDadosInvalidos(login, senha, nome, endereco, email);
-		
-		/* excecaoLoginInvalido(login);
-		 excecaoUsuarioJaExiste(login);
-		 excecaoSenhaInvalido(senha);
-		 excecaoNomeInvalido(nome);
-		 excecaoEnderecoInvalido(endereco);
-		 excecaoEmailInvalido(email);
-		 excecaoEmailJaExiste(email);*/
+		 lancaExcecaoDeDadosInvalidos(login, senha, nome, endereco, email);
 		 
 		 Usuario novoUsuario = new Usuario(login, senha, nome, endereco, email);
 	     usuarios.add(novoUsuario);
@@ -70,11 +62,6 @@ public class SistemaDeCarona {
 		
 		excecaoDeAtributosInvalidos(login, atributo); // lança qualquer excecao se o login ou o atributo estiver incorreto
 		
-		/*excecaoLoginInvalido(login);
-		excecaoAtributoInvalido(atributo);
-		excecaoAtributoInexistente(atributo);
-		excecaoUsuarioInxistente(login);*/
-		
 		if(atributo.equals("nome")){
 			return buscaUsuario(login).getNome();
 		}
@@ -105,61 +92,35 @@ public class SistemaDeCarona {
 	}
 	
 	
-//	public String getAtributoCarona(String idDaSessao, String atributo) throws Exception {
-//		System.out.println(idDaSessao + "  aqui");
-//		excecaoDeAtributosCaronaInvalidos(idDaSessao, atributo);
-//		
-//		if(atributo.equals("origem")){
-//			return buscaCaronaID(idDaSessao).get(0).getOrigem();
-//		}
-//		if(atributo.equals("destino")){
-//			return buscaCaronaID(idDaSessao).get(0).getDestino();
-//		}
-//		if(atributo.equals("data")){
-//			return buscaCaronaID(idDaSessao).get(0).getData();
-//		}
-//		
-//		//vagas retona int, metodo retorna String
-////		if(atributo.equals("vagas")){
-////			return buscaCaronaID(idDaSessao).get(0).getVagas();
-////		}
-//		
-//		throw new Exception("error");
-//		
-//	}
 	
-	public String getAtributoCarona(String idDaSessao, String atributo) throws Exception
+	public String getAtributoCarona(String idDaCarona, String atributo) throws Exception
 	{
-		String saida = null;
-		excecaoDeAtributosCaronaInvalidos(idDaSessao, atributo);
-
-		List<Carona> listaCarona = buscaCaronaID(idDaSessao);
-		Iterator<Carona> itCarona = listaCarona.iterator();
-		while (itCarona.hasNext())
-		{
-			Carona carona = itCarona.next();
+		  String saida = null;
+	       excecaoDeAtributosCaronaInvalidos(idDaCarona, atributo);
+		   
+	       Carona carona = buscaCaronaID(idDaCarona);
+		  
 			if(atributo.equals("origem")){
 				saida = carona.getOrigem();
 			}
 			if(atributo.equals("destino")){
-				saida = carona.getDestino();
-				break;				
+				saida = carona.getDestino();			
 			}
 			if(atributo.equals("data")){
 				saida = carona.getData();
-				break;
 			}
-		}
+			
+			if (atributo.equals("vagas")) {
+				saida = Integer.toString(carona.getVagas());
+			}
+		
 		//aceita o primeiro que achar e depois sai.
 		return saida;
 	}
 	
-	public void excecaoDeAtributosCaronaInvalidos(String idDaSessao,String atributo) throws Exception{
-//		if(idDaSessao.equals(null) || idDaSessao.equals(""))
-//		{
-//			throw new Exception("Identificador do carona é inválido");
-//		}
-		if(buscaCaronaID(idDaSessao).equals(null))
+	public void excecaoDeAtributosCaronaInvalidos(String idDaCarona,String atributo) throws Exception{
+
+		if(buscaCaronaID(idDaCarona).equals(null))
 		{
 			throw new Exception("Item inexistente");
 		}
@@ -173,97 +134,56 @@ public class SistemaDeCarona {
 		}
 	}
 	
-	
-	
-	public List<Carona> buscaCaronaID(String idDaSessao)
-	{
-		List<Carona> usuarioEncontrado = null;
-		for (String id : mapaDeCaronas.keySet())
-		{
-			if(idDaSessao.equals(id))
-			{
-				usuarioEncontrado = mapaDeCaronas.get(id);
-				break;
-			}
+	public void excecaoDeCriacaoDeCarona(String idDaSessao,String origem,String destino,String data,String hora,int vagas) throws Exception{
+		
+		if (idDaSessao == null || idDaSessao.equals(" ")) {
+			throw new Exception("Sessão inválida");
 		}
-		return usuarioEncontrado;
+		if (origem == null || origem.equals("")) {
+			throw new Exception("Origem inválida");
+		}
+		
+		if (destino == null || destino.equals("")) {
+			throw new Exception("Destino inválido");
+		}
+		
+		if (data == null || data.equals("")) {
+			throw new Exception("Data inválida");
+		}
+		
+		if (hora == null || hora.equals("")) {
+			throw new Exception("Hora inválida");
+		}
+		
+		if (vagas <= 0) {
+			throw new Exception("Vaga inválida");
+		}
+	}
+	
+	
+	
+	public Carona buscaCaronaID(String idDaCarona)
+	{
+		
+		Iterator<Carona> itListaDeCaronas = listaDeCaronas.iterator();
+		Carona saida = null;
+		
+		while (itListaDeCaronas.hasNext()) {
+			  Carona carona = (Carona) itListaDeCaronas.next();
+			  if (carona.getIdDaCarona().equals(idDaCarona)) {
+				  saida = carona;
+				  break;
+				 
+			}
+	
+			
+		 }
+		 
+		return saida;
+		
 	}
 
 	
-	
-	/*public void excecaoUsuarioInxistente(String login) throws Exception{
-		if (buscaUsuario(login) == null) {
-			throw new Exception("Usuário inexistente");
-		}
-	}
-	
-	public void excecaoAtributoInexistente(String atributo) throws Exception{
-		if (!atributo.equals("nome") && !atributo.equals("endereco") && !atributo.equals("login") && !atributo.equals("senha") && !atributo.equals("email")) {
-			throw new Exception("Atributo inexistente");
-		}
-		
-	}
-	public void excecaoAtributoInvalido(String atributo) throws Exception{
-		if (atributo == null || atributo.equals("")) {
-			throw new Exception("Atributo inválido");
-		
-		}
-		
-	}
-	
-	public void excecaoLoginInvalido(String login) throws Exception{
-		if (login == null || login.equals("")) {
-			throw new Exception("Login inválido");
-		}
-		
-	}
-	
-	public void excecaoSenhaInvalido(String senha) throws Exception{
-		if (senha == null || senha.equals("")) {
-			throw new Exception("Senha inválido");
-		}
-		
-	}
-	
-	public void excecaoNomeInvalido(String nome) throws Exception{
-		if (nome == null || nome.equals("")) {
-			throw new Exception("Nome inválido");
-		}
-		
-	}
-	
-	public void excecaoEnderecoInvalido(String endereco) throws Exception{
-		if (endereco == null || endereco.equals("")) {
-			throw new Exception("Endereco inválido");
-		}
-		
-	}
-	
-	public void excecaoEmailInvalido(String email) throws Exception{
-		if (email == null || email.equals("")) {
-			throw new Exception("Email inválido");
-		}
-		
-	}
-	
-	public void excecaoUsuarioJaExiste(String login) throws Exception{
-		for (int i = 0; i < usuarios.size(); i++) {
-			if (usuarios.get(i).getLogin().equals(login)) {
-				throw new Exception("Já existe um usuário com este login");
-			}
-		}
-		
-	}
-	
-	public void excecaoEmailJaExiste(String email) throws Exception{
-		for (int i = 0; i < usuarios.size(); i++) {
-			if (usuarios.get(i).getEmail().equals(email)) {
-				throw new Exception("Já existe um usuário com este email");
-			}
-		}
-		
-	}
-	*/
 	
 	
 	public static void lancaExcecaoDeDadosInvalidos(String login,String senha,String nome,String endereco,String email) throws Exception{
@@ -304,73 +224,121 @@ public class SistemaDeCarona {
 		return null;
 	}
 	
-	public static void main(String[] args) throws Exception {
-		Carona c = new Carona("o", "oi", "oiji", "oij", 2);
-		System.out.println(c.getIdDaCarona().equals(null));
-		SistemaDeCarona s = new SistemaDeCarona();
-		Usuario usuario = new Usuario("dnlgomes", "danilo", "da", "eu", "lakdjf");
-	    usuarios.add(usuario);
-	    System.out.println(s.cadastrarCarona("88", "campina", "joao", "12/03", "12:00", 3));
-	    Map<String, List<Carona>> l = s.localizarCarona("88", "campina", "joao");
-	    List<Carona> a = l.get("88");
-	    System.out.println(a.get(0).getOrigem());
-	    System.out.println(s.getAtributoCarona("88", "destino"));
-		System.out.println(l.get("88").get(0).getIdDaCarona());
-	    
-	    
-	}
 	
-   public String cadastrarCarona(String idDaSessao, String origem, String destino, String data, String hora, int vagas){
+	
+   public String cadastrarCarona(String idDaSessao, String origem, String destino, String data, String hora, int vagas) throws Exception{
 	   
+	   excecaoDeCriacaoDeCarona(idDaSessao, origem, destino, data, hora, vagas);
 	   Carona novaCarona = new Carona(origem, destino, data, hora, vagas);
 	   listaDeCaronas.add(novaCarona);
-	   mapaDeCaronas.put(idDaSessao, listaDeCaronas);
 	   
-	   return idDaSessao;
+	   if (mapaDeCaronas.containsKey(idDaSessao)) {
+		   mapaDeCaronas.get(idDaSessao).add(novaCarona);
+	   }
+	   else{
+		   mapaDeCaronas.put(idDaSessao, new ArrayList<Carona>());
+		   mapaDeCaronas.get(idDaSessao).add(novaCarona);
+	   }
+
+	   
+	   return novaCarona.getIdDaCarona();
 		
 	}
+   
+   
 
 
-	public Map<String, List<Carona>> localizarCarona(String idDaSessao, String origem,
-			String destino) {
-		List<Carona> listaDeCaronasAux = new ArrayList<Carona>();
-		Carona carona = null;
-		List<Carona> listaDeCaronasEncontradasAux = new ArrayList<Carona>();
+
+	public String localizarCarona(String idDaSessao, String origem,String destino) {
+		
+		List<String> caronasEncontradas = new ArrayList<String>();
+		String strCaronas = null;
+		
 		 for (String chave : mapaDeCaronas.keySet()) {
 			 
-			 listaDeCaronasEncontradasAux.clear();
-			 
-			 listaDeCaronasAux = mapaDeCaronas.get(chave);
-			 
-			 for (int i = 0; i < listaDeCaronasAux.size(); i++) {
-				carona = listaDeCaronasAux.get(i);
-				if (carona.getDestino().equals(destino) && carona.getOrigem().equals(origem)) {
-					listaDeCaronasEncontradasAux.add(carona);
-				}
-			}
-			 mapaDeCaronasEncontradas.put(idDaSessao, listaDeCaronasEncontradasAux);
-		}
+			 for (Carona carona : mapaDeCaronas.get(chave)) {
+				 
+				
+				if (!origem.equals("") && !destino.equals("")) { // lista todas as caronas de uma determinada origem até um destino
+					
+					
+					if (carona.getDestino().equals(destino) && carona.getOrigem().equals(origem)) {
+						
+						caronasEncontradas.add(carona.getIdDaCarona());
 			
+					  }
+					}
+					
+				   if (!origem.equals("") && destino.equals("")) { //lista todas as caronas daquela origem
+						if (carona.getOrigem().equals(origem)) {
+							
+							caronasEncontradas.add(carona.getIdDaCarona());
+							
+							}
+					}
+				   
+				   if (origem.equals("") && !destino.equals("")) { // lista todas as caronas para aquele destino
+					  if (carona.getDestino().equals(destino)) {
+						  
+						  caronasEncontradas.add(carona.getIdDaCarona());
+						
+					}
+				}
+				   
+				   if (origem.equals("") && destino.equals("")) { // lista todas as caronas
+					   
+					   caronasEncontradas.add(carona.getIdDaCarona());
+					 
+				   }
+					
+				}
+					
+			
+			 }
 		
-		
+			
 		 
-		return mapaDeCaronasEncontradas;
+		 
+		// strCaronas = strCaronas+"}";
+         strCaronas = caronasEncontradas.toString();
+         strCaronas = strCaronas.replace("[", "{");
+         strCaronas = strCaronas.replace("]", "}");
+         
+		 return strCaronas;
 	}
 	
-	public String getTrajeto(String id)
+	
+	public String getTrajeto(String idDaCarona)
 	{
-		return buscaCaronaID(id).get(0).getOrigem() + " - " + buscaCaronaID(id).get(0).getDestino();
+		return buscaCaronaID(idDaCarona).getOrigem() + " - " + buscaCaronaID(idDaCarona).getDestino();
 	}
 	
 	
-	public String getCarona(String id)
+	public String getCarona(String idDaCarona)
 	{
-		Carona lista = buscaCaronaID(id).get(0);
+		Carona carona = buscaCaronaID(idDaCarona);
 		//João Pessoa para Campina Grande, no dia 25/11/2026, as 06:59
-		return lista.getOrigem() + " para " + lista.getDestino() + 
-				", no dia " + lista.getData() + ", as " + lista.getHora();
+		return carona.getOrigem() + " para " + carona.getDestino() + 
+				", no dia " + carona.getData() + ", as " + carona.getHora();
 		
 		
 	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		SistemaDeCarona sc = new SistemaDeCarona();
+		sc.cadastrarCarona("234", "campina", "joao pessoa", "12/03/2012", "14:00", 3);
+		sc.cadastrarCarona("2344", "campina", "joao pessoa", "12/03/2012", "15:00", 3);
+		sc.cadastrarCarona("234", "campina", "caruaru", "12/03/2012", "15:00", 3);
+		sc.cadastrarCarona("234", "campina", "caruaru", "12/03/2012", "19:00", 3);
+		
+		System.out.println(sc.mapaDeCaronas.toString());
+		
+	
+	    
+	    
+	}
+	
+	
 
 }

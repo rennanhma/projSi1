@@ -34,12 +34,12 @@ public class Easy {
 		return sistema.buscaUsuario(login);
 	}
    
-	public Map<String, List<Carona>> localizarCarona(String idDaSessao,String origem,String destino){
+	public String localizarCarona(String idDaSessao,String origem,String destino){
 		
 		return sistema.localizarCarona(idDaSessao,origem,destino);
 	}
 	
-	public String cadastrarCarona(String idDaSessao, String origem, String destino, String data, String hora, int vagas)
+	public String cadastrarCarona(String idDaSessao, String origem, String destino, String data, String hora, int vagas) throws Exception
 	{
 		return sistema.cadastrarCarona(idDaSessao, origem, destino, data, hora, vagas);
 	}
