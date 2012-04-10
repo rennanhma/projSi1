@@ -23,8 +23,8 @@ public class Easy {
 	}
 	
 	
-	public void abrirSessao(String login,String senha) throws Exception{
-		sistema.abrirSessao(login, senha);
+	public String abrirSessao(String login,String senha) throws Exception{
+		return sistema.abrirSessao(login, senha);
 	}
 	public String getAtributoUsuario(String login, String atributo) throws Exception{
 	    return sistema.getAtributoUsuario(login, atributo);
@@ -34,12 +34,12 @@ public class Easy {
 		return sistema.buscaUsuario(login);
 	}
    
-	public String localizarCarona(String idDaSessao,String origem,String destino){
+	public String localizarCarona(String idDaSessao,String origem,String destino) throws Exception{
 		
 		return sistema.localizarCarona(idDaSessao,origem,destino);
 	}
 	
-	public String cadastrarCarona(String idDaSessao, String origem, String destino, String data, String hora, int vagas) throws Exception
+	public String cadastrarCarona(String idDaSessao, String origem, String destino, String data, String hora, String vagas) throws Exception
 	{
 		return sistema.cadastrarCarona(idDaSessao, origem, destino, data, hora, vagas);
 	}
@@ -49,12 +49,12 @@ public class Easy {
 		return sistema.getAtributoCarona(idDaSessao, atributo);
 	}
 	
-	public String getTrajeto(String id)
+	public String getTrajeto(String id) throws Exception
 	{
 		return sistema.getTrajeto(id);
 	}
 	
-	public String getCarona(String id)
+	public String getCarona(String id) throws Exception
 	{
 		return sistema.getCarona(id);
 	}

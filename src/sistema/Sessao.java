@@ -3,20 +3,22 @@ package sistema;
 import java.util.UUID;
 
 public class Sessao {
-	String login;
-	String senha;
-	String id;
+	
+	private String login;
+	private String senha;
+	private String id;
 
 	public Sessao(String login, String senha) {
 		boolean iniciada = false;
 		this.login = login;
 		this.senha = senha;
-		this.id = gerarId();
+		id = UUID.randomUUID().toString();
+
 	}
 
-	private String gerarId() {
+/*	private String gerarId() {
 		return UUID.randomUUID().toString();
-	}
+	}*/
 
 	public String getLogin() {
 		return login;
