@@ -7,10 +7,10 @@ public class SistemaDeCarona {
 	/**
 	 * @param args
 	 */
-	public static List<Usuario> ListaDeUsuarios = new ArrayList<Usuario>();
-	public static List<Carona> listaDeCaronas = new ArrayList<Carona>();
-	public static List<Sessao> listaDeSessoesAbertas = new ArrayList<Sessao>();
-	public static Map<String, List<Carona>> mapaDeCaronas = new HashMap<String, List<Carona>>();
+	private  List<Usuario> ListaDeUsuarios = new ArrayList<Usuario>();
+	private  List<Carona> listaDeCaronas = new ArrayList<Carona>();
+	private List<Sessao> listaDeSessoesAbertas = new ArrayList<Sessao>();
+	private  Map<String, List<Carona>> mapaDeCaronas = new HashMap<String, List<Carona>>();
 	
 
 	public SistemaDeCarona() {
@@ -227,7 +227,7 @@ public class SistemaDeCarona {
 	
 	
 	
-	public static void excecaoCriarUsuario(String login,String senha,String nome,String endereco,String email) throws Exception{
+	public void excecaoCriarUsuario(String login,String senha,String nome,String endereco,String email) throws Exception{
 		if (login == null || login.equals("")) {
 			throw new Exception("Login inválido");
 		}
@@ -462,20 +462,7 @@ public class SistemaDeCarona {
 		
 	}
 	
-	public static void main(String[] args) throws Exception {
-		
-		/*SistemaDeCarona sc = new SistemaDeCarona();
-		sc.cadastrarCarona("234", "campina", "joao pessoa", "12/03/2012", "14:00", "3");
-		sc.cadastrarCarona("2344", "campina", "joao pessoa", "12/03/2012", "15:00", "3");
-		sc.cadastrarCarona("234", "campina", "caruaru", "12/03/2012", "15:00", "3");
-		sc.cadastrarCarona("234", "campina", "caruaru", "12/03/2012", "19:00", "3");
-		
-		System.out.println(sc.mapaDeCaronas.toString());*/
-		
-	
-	    
-	    
-	}
+
 	
 	
 
