@@ -17,7 +17,7 @@ public class Easy {
             sistema.criarUsuario(login, senha, nome, endereco, email);
 	}
 
-	public void encerrarSistema() {
+	public void encerrarSistema() throws Throwable {
 
 		sistema.encerrarSistema();
 	}
