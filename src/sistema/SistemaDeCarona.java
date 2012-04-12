@@ -361,7 +361,7 @@ public class SistemaDeCarona {
          strCaronas = strCaronas.replace("[", "{");
          strCaronas = strCaronas.replace("]", "}");
          
-		 return strCaronas;
+		return strCaronas.replace(" ", "");
 	}
 	
 	public void excecaoLocalizarCarona(String idDaSessao, String origem, String destino) throws Exception{
