@@ -52,5 +52,10 @@ public class TesteSistema {
 			assertEquals("Login inválido ou Senha", e.getMessage());
 		}
 	}
+	//User 4
+	public void testeEncerrarSessao() throws Exception{
+		sistema.abrirSessao("mark", "m@rk");
+		
+	}
 
 }

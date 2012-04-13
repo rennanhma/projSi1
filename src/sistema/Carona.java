@@ -1,7 +1,9 @@
 package sistema;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -19,8 +21,9 @@ public class Carona {
 	private String origem, destino, data, hora, idDaCarona;
 	private int vagas;
 	private GregorianCalendar dataAtual, horaAtual, dataHoraCarona;
-	
-	
+	private String pontoDeEncontro;
+	private List<Sugestao> sugestoesEncontro = new ArrayList<Sugestao>();
+	private List<Solicitacao> solicitacaoVagas = new ArrayList<Solicitacao>();
 	
 	public Carona(String origem, String destino, String data, String hora, int vagas){
 		
@@ -36,6 +39,32 @@ public class Carona {
 		
 	}
 	
+	public List<Solicitacao> getSolicitacaoVagas() {
+		return solicitacaoVagas;
+	}
+
+	public void addSolicitacaoVagas(Solicitacao solicitacao) {
+		this.solicitacaoVagas.add(solicitacao);
+	}
+
+	public String getPontoDeEncontro() {
+		return pontoDeEncontro;
+	}
+	
+	
+	public void setPontoDeEncontro(String pontoDeEncontro) {
+		this.pontoDeEncontro = pontoDeEncontro;
+	}
+	
+	
+	public List<Sugestao> getSugestoesEncontro() {
+		return sugestoesEncontro;
+	}
+	
+	
+	public void addSugestoesEncontro(Sugestao sugestoesEncontro) {
+		this.sugestoesEncontro.add(sugestoesEncontro);
+	}
 	
 	public String getIdDaCarona() {
 		return idDaCarona;

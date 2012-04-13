@@ -352,8 +352,83 @@ public class SistemaDeCarona {
 		return carona.getOrigem() + " para " + carona.getDestino()
 				+ ", no dia " + carona.getData() + ", as " + carona.getHora();
 	}
+	/**
+	 * Encerra Sessao Aberta
+	 * @param login
+	 */
+	public void encerrarSessao(String login){
+		Sessao sessao = null;
+		for(Sessao sessao1 : listaDeSessoesAbertas){
+				listaDeSessoesAbertas.remove(sessao1.getLogin().equals(login));
+		}
+	
+	}
+	/**
+	 * Sugere ponto de Encontro
+	 * @param idSessao
+	 * @param idCarona
+	 * @param pontos
+	 * @return
+	 */
+	public String sugerirPontoEncontro(String idSessao, String idCarona, String pontos){
+		Sugestao sugestao = new Sugestao(idSessao, idCarona, pontos);
+		buscaCaronaID(idCarona).addSugestoesEncontro(sugestao);
+		return sugestao.getIdSessao();
+	}
 
+	/**
+	 * responder Sugestao de Ponto
+	 * @param idSessao
+	 * @param idCarona
+	 * @param idSugestao
+	 * @param pontos
+	 * @throws Exception
+	 */
+	public void responderSugestaoPontoEncontro(String idSessao, String idCarona, String idSugestao, String pontos) throws Exception{
+		Sessao sessao = buscarSessaoId(idSessao);
+		Carona carona = buscaCaronaID(idCarona);
+		if(carona.equals(null)){
+			throw new Exception("Carona Invalida");
+		}
+		for(Carona carona1 :mapaDeCaronas.get(idSessao)){
+			if(carona1.getIdDaCarona().equals(idCarona)){
+				carona.setPontoDeEncontro(pontos);
+			}else{
+				throw new Exception("vc nao pode Mudar ponto dessa carona");
+			}
+		}
 
+	}
+	
+	/**
+	 * Solicitar Vaga no ponto de Encontro
+	 * @param idSessao
+	 * @param idCarona
+	 * @param ponto
+	 * @return
+	 * @throws Exception
+	 */
+	public String solicitarVagaPontoEncontro(String idSessao, String idCarona , String ponto) throws Exception{
+		Solicitacao solicitacao = new Solicitacao(idSessao, ponto);
+		Carona carona = buscaCaronaID(idCarona);
+		if(carona.equals(null)){
+			throw new Exception("Carona Invalida");
+		}else{
+			carona.addSolicitacaoVagas(solicitacao);
+		}
+		return solicitacao.getId();
+	}
+	
+	/**
+	 * Pegar atributo de Solicitacao
+	 * @param idSolicitacao
+	 * @param atributo
+	 * @return
+	 */
+	public String getAtributoSolicitacao(String idSolicitacao, String atributo){
+		return "return";
+	}
+	
 	/**
 	 * Encerrar Sistema
 	 * 
