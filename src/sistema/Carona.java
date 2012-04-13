@@ -24,8 +24,17 @@ public class Carona {
 	private String pontoDeEncontro;
 	private List<Sugestao> sugestoesEncontro = new ArrayList<Sugestao>();
 	private List<Solicitacao> solicitacaoVagas = new ArrayList<Solicitacao>();
+	public Usuario getDonoCarona() {
+		return donoCarona;
+	}
+
+	public void setDonoCarona(Usuario donoCarona) {
+		this.donoCarona = donoCarona;
+	}
+
+	private Usuario donoCarona;
 	
-	public Carona(String origem, String destino, String data, String hora, int vagas){
+	public Carona(String origem, String destino, String data, String hora, int vagas, Usuario donoCarona){
 		
 		   this.origem = origem;
 		   this.destino = destino;

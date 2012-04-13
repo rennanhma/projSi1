@@ -4,11 +4,21 @@ import java.util.UUID;
 
 public class Solicitacao {
 	 private String idDoSolicitador,ponto, id;
+	 private Carona carona;
 	
-	public Solicitacao(String idDoSolicitador, String ponto){
+	public Solicitacao(String idDoSolicitador, String ponto, Carona carona){
 		this.idDoSolicitador = idDoSolicitador;
 		this.ponto = ponto;
 		this.id = UUID.randomUUID().toString();
+		this.carona = carona;
+	}
+
+	public Carona getCarona() {
+		return carona;
+	}
+
+	public void setCarona(Carona carona) {
+		this.carona = carona;
 	}
 
 	public String getId() {

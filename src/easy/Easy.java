@@ -58,9 +58,26 @@ public class Easy {
 	{
 		return sistema.getCarona(id);
 	}
-	// At line 22: Unknown command: carona1ID=cadastrarCarona idSessao= origem="Campina Grande" destino="João Pessoa" data=23/06/2012 hora=16:00 vagas=3
-	/*public cadastraCarona(String idDaSessao, String origem, String destino, String data, String hora, String vagas){
-		
-	}*/
 
+	public void encerrarSessao(String login){
+		sistema.encerrarSessao(login);
+	}
+	
+	public String sugerirPontoEncontro (String idSessao, String idCarona, String pontos){
+		return sistema.sugerirPontoEncontro(idSessao, idCarona, pontos);
+	}
+	
+	public void responderSugestaoPontoEncontro(String idSessao, String idCarona, String  idSugestao, String pontos) throws Exception{
+		sistema.responderSugestaoPontoEncontro(idSessao, idCarona, idSugestao, pontos);
+	}
+	
+	public String solicitarVagaPontoEncontro(String idSessao, String idCarona, String ponto) throws Exception{
+		return sistema.solicitarVagaPontoEncontro(idSessao, idCarona, ponto);
+	}
+	
+	public String getAtributoSolicitacao(String idSolicitacao, String atributo){
+		return sistema.getAtributoSolicitacao(idSolicitacao, atributo);
+	}
+	
+	
 }

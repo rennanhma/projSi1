@@ -220,7 +220,10 @@ public class SistemaDeCarona {
 			throws Exception {
 		excecaoDeCriacaoDeCarona(idDaSessao, origem, destino, data, hora, vagas);
 		int vagasInt = Integer.parseInt(vagas);
-		Carona novaCarona = new Carona(origem, destino, data, hora, vagasInt);
+		
+		Sessao sessao = buscarSessaoId(idDaSessao);
+		Usuario usuario = buscaUsuario(sessao.getLogin());
+		Carona novaCarona = new Carona(origem, destino, data, hora, vagasInt, usuario);
 		listaDeCaronas.add(novaCarona);
 
 		if (mapaDeCaronas.containsKey(idDaSessao)) {
@@ -326,6 +329,7 @@ public class SistemaDeCarona {
 		}
 		return sessao;
 	}
+	
 /**
  * Pega Trajeto
  * @param idDaCarona
@@ -409,8 +413,8 @@ public class SistemaDeCarona {
 	 * @throws Exception
 	 */
 	public String solicitarVagaPontoEncontro(String idSessao, String idCarona , String ponto) throws Exception{
-		Solicitacao solicitacao = new Solicitacao(idSessao, ponto);
 		Carona carona = buscaCaronaID(idCarona);
+		Solicitacao solicitacao = new Solicitacao(idSessao, ponto, carona);
 		if(carona.equals(null)){
 			throw new Exception("Carona Invalida");
 		}else{
@@ -425,8 +429,39 @@ public class SistemaDeCarona {
 	 * @param atributo
 	 * @return
 	 */
+
 	public String getAtributoSolicitacao(String idSolicitacao, String atributo){
-		return "return";
+		Solicitacao solicitacao = buscaSolicitacao(idSolicitacao);
+			if(atributo.equals("origem")){
+				return solicitacao.getCarona().getOrigem();
+			}
+			else if(atributo.equals("destino")){
+				return solicitacao.getCarona().getDestino();
+			}
+			else if(atributo.equals("Dono da carona")){
+				return solicitacao.getCarona().getDonoCarona().getNome();
+			}
+			else if(atributo.equals("Dono Da Solicitacao")){
+				Sessao sessao = buscarSessaoId(solicitacao.getIdDoSolicitador());
+				Usuario usuario = buscaUsuario(sessao.getLogin());
+				return usuario.getNome();
+			}
+			else if(atributo.equals("Ponto de Encontro")){
+				return solicitacao.getPonto();
+			}else{
+				return null;
+			}
+	}
+	
+	public Solicitacao buscaSolicitacao(String idSolicitacao){
+		for(Carona carona1: listaDeCaronas){
+			for(Solicitacao solicitacao1: carona1.getSolicitacaoVagas()){
+				if(solicitacao1.getId().equals(idSolicitacao)){
+					return solicitacao1;
+				}
+			}
+		}
+		return null;
 	}
 	
 	/**
