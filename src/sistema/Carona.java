@@ -24,7 +24,6 @@ public class Carona {
 	private String pontoDeEncontro;
 	private List<Sugestao> sugestoesEncontro = new ArrayList<Sugestao>();
 	private List<Solicitacao> solicitacaoVagas = new ArrayList<Solicitacao>();
-
 	private Usuario donoCarona;
 	
 	public Carona(String origem, String destino, String data, String hora, int vagas, Usuario donoCarona){
