@@ -365,7 +365,8 @@ public class SistemaDeCarona {
 		return carona.getOrigem() + " para " + carona.getDestino()
 				+ ", no dia " + carona.getData() + ", as " + carona.getHora();
 	}
-
+	
+// User04
 	/**
 	 * Encerra Sessao Aberta
 	 * 
@@ -390,8 +391,8 @@ public class SistemaDeCarona {
 	public String sugerirPontoEncontro(String idSessao, String idCarona,
 			String pontos) {
 		Sugestao sugestao = new Sugestao(idSessao, idCarona, pontos);
-		buscaCaronaID(idCarona).addSugestoesEncontro(sugestao);
-		return sugestao.getIdSessao();
+		buscaCaronaID(idCarona).addSugestoesEncontro(sugestao.getIdSugestao());
+		return sugestao.getIdSugestao();
 	}
 
 	/**
@@ -403,19 +404,21 @@ public class SistemaDeCarona {
 	 * @param pontos
 	 * @throws Exception
 	 */
-	public void responderSugestaoPontoEncontro(String idSessao,
+	/*
+	 *  Errado pq tem que sair um ID de Resposta
+	 *  E acho que o ponto de encontro tem que ser uma lista de pontos
+	 *  ele receber "Açude Velho; Hiper"
+	 *  e tranformar em [açude, hiper] nao sei
+	 */
+	
+	public String responderSugestaoPontoEncontro(String idSessao,
 			String idCarona, String idSugestao, String pontos) throws Exception {
 		Sessao sessao = buscarSessaoId(idSessao);
 		Carona carona = buscaCaronaID(idCarona);
-		if (carona.equals(null)) {
-			throw new Exception("Carona Invalida");
+		if(sessao.getLogin().equals(carona.getDonoCarona().getLogin())){
+			carona.setPontoDeEncontro(pontos);
 		}
-		for (Carona carona1 : mapaDeCaronas.get(idSessao)) {
-			if (carona1.getIdDaCarona().equals(idCarona)) {
-				carona.setPontoDeEncontro(pontos);
-			}
-
-		}
+		return "idResposta";
 
 	}
 
@@ -484,17 +487,71 @@ public class SistemaDeCarona {
 		return null;
 	}
 
-	/*
-	 * aceitarSolicitacaoPontoEncontro
-	 * idSessao=24fc3b9e-4b92-476c-aaf5-d5f8d855dec4
-	 * idSolicitacao=2892afaf-f304-455d-bae6-4ef20ac3df01
+	/**
+	 * Aceitar Solicitacao
+	 * @param idSessao
+	 * @param idSolicitacao
+	 * @throws Exception 
 	 */
-	
+	/*
+	 * 1- Verico se a solicitacao está na Carona da idSessao
+	 * 2- Verifico se Tem vaga na carona
+	 * 3-Se tiver... Coloco o donoDaSolicitacao na lista de Caroneiros
+	 * 4-Diminuo 1 Vaga na Carona
+	 * 
+	 * OBS: quando aceita a solicitacao acho que tem que remover da lista de Solicitacoes.. porem
+	 * nao fiz
+	 * 
+	 */
 	public String aceitarSolicitacaoPontoEncontro(String idSessao,
-			String idSolicitacao) {
-		//TODO
-		return "oi";
+			String idSolicitacao) throws Exception {
+		Sessao sessao = buscarSessaoId(idSessao);
+		Solicitacao solicitacao = buscaSolicitacao(idSolicitacao);
+		Carona carona = solicitacao.getCarona();
+		
+		
+		if(solicitacao.equals(null)){
+			throw new Exception("Solicitação inexistente");
+		}
+		
+		if(sessao.getLogin().equals(carona.getDonoCarona().getLogin())){
+			if(carona.getVagas()>0){
+				carona.setVagas(carona.getVagas()-1);
+				carona.addCaroneiros(solicitacao.getIdDoSolicitador());
+				return solicitacao.getId();
+				
+			}else{
+				throw new Exception("Lotado");
+			}
+		}else{
+			throw new Exception("Solicitação inexistente");
+		}
 	}
+	
+	/**
+	 * Aceita solicitacao mesma coisa do de cima.. 
+	 * @param idSessao
+	 * @param idSolicitacao
+	 * @throws Exception
+	 */
+	public String aceitarSolicitacao(String idSessao, String idSolicitacao)
+			throws Exception {
+			return aceitarSolicitacaoPontoEncontro(idSessao, idSolicitacao);
+	}
+	
+	/**
+	 * Desisti Requisicao
+	 * @param idSessao
+	 * @param idCarona
+	 */
+	 public void desistirRequisicao(String idSessao, String idCarona, String idSugestao){
+		 Sessao sessao = buscarSessaoId(idSessao);
+		 Carona carona = buscaCaronaID(idCarona);
+		 if(sessao.getLogin().equals(carona.getDonoCarona().getLogin())){
+			 carona.rmSugestoesEncontro(idSugestao);
+		 }
+	 }
+
 
 	/**
 	 * Encerrar Sistema

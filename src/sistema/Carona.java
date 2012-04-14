@@ -22,9 +22,11 @@ public class Carona {
 	private int vagas;
 	private GregorianCalendar dataAtual, horaAtual, dataHoraCarona;
 	private String pontoDeEncontro;
-	private List<Sugestao> sugestoesEncontro = new ArrayList<Sugestao>();
+	private List<String> sugestoesEncontro = new ArrayList<String>();
 	private List<Solicitacao> solicitacaoVagas = new ArrayList<Solicitacao>();
+	private List<String> usuariosCaronaId = new ArrayList<String>();
 	private Usuario donoCarona;
+	
 	
 	public Carona(String origem, String destino, String data, String hora, int vagas, Usuario donoCarona){
 		
@@ -53,6 +55,9 @@ public class Carona {
 	public void addSolicitacaoVagas(Solicitacao solicitacao) {
 		this.solicitacaoVagas.add(solicitacao);
 	}
+	public void remSolicitacaoVagas(Solicitacao solicitacao){
+		this.solicitacaoVagas.remove(solicitacao);
+	}
 
 	public String getPontoDeEncontro() {
 		return pontoDeEncontro;
@@ -64,12 +69,12 @@ public class Carona {
 	}
 	
 	
-	public List<Sugestao> getSugestoesEncontro() {
+	public List<String> getSugestoesEncontro() {
 		return sugestoesEncontro;
 	}
 	
 	
-	public void addSugestoesEncontro(Sugestao sugestoesEncontro) {
+	public void addSugestoesEncontro(String sugestoesEncontro) {
 		this.sugestoesEncontro.add(sugestoesEncontro);
 	}
 	
@@ -215,9 +220,14 @@ public class Carona {
 		}
 		return false;
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(isDataValida("25/12/2011"));
+
+	public void addCaroneiros(String idDoSolicitador) {
+		this.usuariosCaronaId.add(idDoSolicitador);
+	}
+
+	public void rmSugestoesEncontro(String idSugestao) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
