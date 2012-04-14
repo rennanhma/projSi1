@@ -397,9 +397,8 @@ public class SistemaDeCarona {
 		for(Carona carona1 :mapaDeCaronas.get(idSessao)){
 			if(carona1.getIdDaCarona().equals(idCarona)){
 				carona.setPontoDeEncontro(pontos);
-			}else{
-				throw new Exception("vc nao pode Mudar ponto dessa carona");
 			}
+			
 		}
 
 	}
@@ -441,7 +440,7 @@ public class SistemaDeCarona {
 			else if(atributo.equals("Dono da carona")){
 				return solicitacao.getCarona().getDonoCarona().getNome();
 			}
-			else if(atributo.equals("Dono Da Solicitacao")){
+			else if(atributo.equals("Dono da solicitacao")){
 				Sessao sessao = buscarSessaoId(solicitacao.getIdDoSolicitador());
 				Usuario usuario = buscaUsuario(sessao.getLogin());
 				return usuario.getNome();
@@ -636,5 +635,16 @@ public class SistemaDeCarona {
 				&& !atributo.equals("data") && !atributo.equals("vagas")) {
 			throw new Exception("Atributo inexistente");
 		}
+	}
+
+	public static void main(String[] args) throws Exception {
+	 SistemaDeCarona sc = new SistemaDeCarona();
+	 sc.criarUsuario("rennanhm", "senha1", "Renna Henrique", "Rua tal do tal", "rennanhm@gmail.com");
+	 sc.criarUsuario("bill", "billsenha", "Biludo", "rua macaiba", "bil@gmail.com");
+	String idCarona = sc.cadastrarCarona(sc.abrirSessao("rennanhm", "senha1"), "origem1", "destino1", "25/07/2012", "13:00", "3");
+	 sc.encerrarSessao("rennanhm");
+	 String soliciatacao = sc.solicitarVagaPontoEncontro(sc.abrirSessao("bill", "billsenha"), idCarona, "Açude");
+	System.out.println(sc.getAtributoSolicitacao(soliciatacao, "Dono da solicitacao")); 
+	 
 	}
 }

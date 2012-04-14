@@ -24,13 +24,6 @@ public class Carona {
 	private String pontoDeEncontro;
 	private List<Sugestao> sugestoesEncontro = new ArrayList<Sugestao>();
 	private List<Solicitacao> solicitacaoVagas = new ArrayList<Solicitacao>();
-	public Usuario getDonoCarona() {
-		return donoCarona;
-	}
-
-	public void setDonoCarona(Usuario donoCarona) {
-		this.donoCarona = donoCarona;
-	}
 
 	private Usuario donoCarona;
 	
@@ -41,11 +34,17 @@ public class Carona {
 		   this.data = data;
 		   this.hora = hora;
 		   this.vagas = vagas;
-		   idDaCarona = UUID.randomUUID().toString();
-
-		   
+		   idDaCarona = UUID.randomUUID().toString();	
+		   this.donoCarona = donoCarona;
 		
-		
+	}
+	
+	public Usuario getDonoCarona() {
+		return donoCarona;
+	}
+	
+	public void setDonoCarona(Usuario donoCarona) {
+		this.donoCarona = donoCarona;
 	}
 	
 	public List<Solicitacao> getSolicitacaoVagas() {
