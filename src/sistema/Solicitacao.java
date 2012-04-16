@@ -3,34 +3,30 @@ package sistema;
 import java.util.UUID;
 
 public class Solicitacao {
-	 private String idDoSolicitador,ponto, id;
-	 private Carona carona;
+
+	private String idSessao, idCarona, ponto, idSolicitacao;
 	
-	public Solicitacao(String idDoSolicitador, String ponto, Carona carona){
-		this.idDoSolicitador = idDoSolicitador;
+	public Solicitacao(String idSessao, String idCarona, String ponto) {
+		this.idSessao = idSessao;
+		this.idCarona = idCarona;
 		this.ponto = ponto;
-		this.id = UUID.randomUUID().toString();
-		this.carona = carona;
+		this.idSolicitacao = UUID.randomUUID().toString();
 	}
 
-	public Carona getCarona() {
-		return carona;
+	public String getIdSessao() {
+		return idSessao;
 	}
 
-	public void setCarona(Carona carona) {
-		this.carona = carona;
+	public void setIdSessao(String idSessao) {
+		this.idSessao = idSessao;
 	}
 
-	public String getId() {
-		return id;
+	public String getIdCarona() {
+		return idCarona;
 	}
 
-	public String getIdDoSolicitador() {
-		return idDoSolicitador;
-	}
-
-	public void setIdDoSolicitador(String idDoSolicitador) {
-		this.idDoSolicitador = idDoSolicitador;
+	public void setIdCarona(String idCarona) {
+		this.idCarona = idCarona;
 	}
 
 	public String getPonto() {
@@ -40,4 +36,13 @@ public class Solicitacao {
 	public void setPonto(String ponto) {
 		this.ponto = ponto;
 	}
+
+	public String getIdSolicitacao() {
+		return idSolicitacao;
+	}
+
+	public void setIdSolicitacao(String idSolicitacao) {
+		this.idSolicitacao = idSolicitacao;
+	}
+
 }

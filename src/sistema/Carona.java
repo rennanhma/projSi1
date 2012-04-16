@@ -17,69 +17,51 @@ import java.util.regex.Matcher;
 #A busca só retorna caronas que ainda irá acontecer.
  */
 
+
 public class Carona {
+	
+	private Usuario donoDaCarona;
+	public static List<Sugestao> listaDeSugestoes = new ArrayList<Sugestao>();
+	public  List<Solicitacao> listaDeSolicitacao = new ArrayList<Solicitacao>();
 	private String origem, destino, data, hora, idDaCarona;
 	private int vagas;
-	private GregorianCalendar dataAtual, horaAtual, dataHoraCarona;
-	private String pontoDeEncontro;
-	private List<String> sugestoesEncontro = new ArrayList<String>();
-	private List<Solicitacao> solicitacaoVagas = new ArrayList<Solicitacao>();
-	private List<String> usuariosCaronaId = new ArrayList<String>();
-	private Usuario donoCarona;
+	private GregorianCalendar dataAtual, dataHoraCarona;
+	public static List<String> pontoDeEncontro = new ArrayList<String>();
 	
 	
-	public Carona(String origem, String destino, String data, String hora, int vagas, Usuario donoCarona){
-		
+	
+	public Carona(String origem, String destino, String data, String hora, int vagas){
 		   this.origem = origem;
 		   this.destino = destino;
 		   this.data = data;
 		   this.hora = hora;
 		   this.vagas = vagas;
 		   idDaCarona = UUID.randomUUID().toString();	
-		   this.donoCarona = donoCarona;
-		
 	}
 	
-	public Usuario getDonoCarona() {
-		return donoCarona;
-	}
 	
-	public void setDonoCarona(Usuario donoCarona) {
-		this.donoCarona = donoCarona;
-	}
-	
-	public List<Solicitacao> getSolicitacaoVagas() {
-		return solicitacaoVagas;
+	public List<Solicitacao> getListaDeSolicitacao() {
+		return listaDeSolicitacao;
 	}
 
-	public void addSolicitacaoVagas(Solicitacao solicitacao) {
-		this.solicitacaoVagas.add(solicitacao);
-	}
-	public void remSolicitacaoVagas(Solicitacao solicitacao){
-		this.solicitacaoVagas.remove(solicitacao);
-	}
 
-	public String getPontoDeEncontro() {
+	public List<String> getPontoDeEncontro() {
 		return pontoDeEncontro;
 	}
-	
-	
-	public void setPontoDeEncontro(String pontoDeEncontro) {
-		this.pontoDeEncontro = pontoDeEncontro;
-	}
-	
-	
-	public List<String> getSugestoesEncontro() {
-		return sugestoesEncontro;
-	}
-	
-	
-	public void addSugestoesEncontro(String sugestoesEncontro) {
-		this.sugestoesEncontro.add(sugestoesEncontro);
-	}
-	
+
+
 	public String getIdDaCarona() {
 		return idDaCarona;
+	}
+
+
+	public List<Sugestao> getSugestoes() {
+		return listaDeSugestoes;
+	}
+
+
+	public void addSugestao(Sugestao sugestao) {
+		listaDeSugestoes.add(sugestao);
 	}
 
 
@@ -93,6 +75,16 @@ public class Carona {
 		dataAtual = new GregorianCalendar();
 		return dataAtual.before(dataGregorianCalendar(data, hora));
 	}
+	
+	public Usuario getDonoDaCarona() {
+		return donoDaCarona;
+	}
+
+
+	public void setDonoDaCarona(Usuario donoDaCarona) {
+		this.donoDaCarona = donoDaCarona;
+	}
+
 	
 	
 	
@@ -220,13 +212,16 @@ public class Carona {
 		}
 		return false;
 	}
+	
 
-	public void addCaroneiros(String idDoSolicitador) {
-		this.usuariosCaronaId.add(idDoSolicitador);
+	public void addSolicitacao(Solicitacao solicitacao) {
+		this.listaDeSolicitacao.add(solicitacao);
+		
 	}
 
-	public void rmSugestoesEncontro(String idSugestao) {
-		// TODO Auto-generated method stub
+
+	public void addPontoDeEncontro(String pontos) {
+		this.pontoDeEncontro.add(pontos);
 		
 	}
 
