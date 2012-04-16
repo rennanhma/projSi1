@@ -471,9 +471,12 @@ public class SistemaDeCarona {
 	}
 	
 	public void encerrarSessao(String login) {
-		Sessao sessao = null;
 		for (Sessao sessao1 : listaDeSessoesAbertas) {
-			listaDeSessoesAbertas.remove(sessao1.getLogin().equals(login));
+			if (sessao1.getLogin().equals(login)) {
+				listaDeSessoesAbertas.remove(sessao1);
+				break;
+			}
+
 		}
 
 	}
