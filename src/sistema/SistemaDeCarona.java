@@ -616,8 +616,7 @@ expect "Acude Velho" getAtributoSolicitacao idSolicitacao=${solicitacao1ID} atri
 		Sessao sessao = buscarSessaoId(idSessao);
 		Carona carona = buscaCaronaID(idCarona);
 		Sugestao sugestao = buscaSugestao(idSugestao, idCarona);
-		if (sessao.getLogin().equals(buscarSessaoId(sugestao.getIdSessao()).getLogin())) {
-		
+		if (sessao.getLogin().equals(carona.getDonoDaCarona().getLogin())) {
 		   if (sugestao != null) {
 			 carona.getSugestoes().remove(sugestao);
 		}
