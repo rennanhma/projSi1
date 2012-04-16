@@ -226,4 +226,10 @@ public class Carona {
 	}
 
 
+	public void rmSugestoes(Sugestao sugestao) {
+		this.listaDeSugestoes.remove(sugestao);
+		
+	}
+
+
 }

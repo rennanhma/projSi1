@@ -618,7 +618,7 @@ expect "Acude Velho" getAtributoSolicitacao idSolicitacao=${solicitacao1ID} atri
 		Sugestao sugestao = buscaSugestao(idSugestao, idCarona);
 		if (sessao.getLogin().equals(carona.getDonoDaCarona().getLogin())) {
 		   if (sugestao != null) {
-			 carona.getSugestoes().remove(sugestao);
+			 carona.rmSugestoes(sugestao);
 		}
 	}
 		
@@ -635,11 +635,21 @@ expect "Acude Velho" getAtributoSolicitacao idSolicitacao=${solicitacao1ID} atri
 		
 		sistema.encerrarSessao("danilo");
 		String idGht = sistema.abrirSessao("ght1", "senhaght");
+		//ADD SUGESTAO
 		String idSugestao = sistema.sugerirPontoEncontro(idGht, idCarona, "acude Vei;praça");
+		Carona carona = sistema.buscaCaronaID(idCarona);
+		//IMPRIME LISTA DE SUGESTAOS
+		System.out.println(carona.getSugestoes().toString());
 		sistema.encerrarSessao("ght1");
 		
 		String idSessaoDanilo2 = sistema.abrirSessao("danilo", "daniloSenha");
+		
 		sistema.responderSugestaoPontoEncontro(idSessaoDanilo2, idCarona, idSugestao, "acude Vei");
+		System.out.println(carona.getSugestoes().toString());
+		//DESISTI de Susgestao
+		sistema.desistirRequisicao(idSessaoDanilo2, idCarona, idSugestao);
+		System.out.println(carona.getSugestoes().toString());
+		System.out.println(carona.getSugestoes().toString());
 		sistema.encerrarSessao("danilo");
 		
 		/*String idGht2 = sistema.abrirSessao("ght1", "senhaght");
