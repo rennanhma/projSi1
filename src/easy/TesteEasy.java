@@ -16,9 +16,9 @@ public class TesteEasy {
 		// Put the us1.txt file into the "test scripts" list
 		files.add("testes/US01.txt");
 		files.add("testes/US02.txt");
-		 files.add("testes/US03.txt");
-		 files.add("testes/US04.txt");
-		 files.add("testes/US05.txt");
+		files.add("testes/US03.txt");
+		files.add("testes/US04.txt");
+		// files.add("testes/US05.txt");
 
 		Easy siTeste = new Easy();
 		// Instantiate EasyAccept façade
