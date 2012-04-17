@@ -620,7 +620,6 @@ public class SistemaDeCarona {
 		}
 
 	}
-
 	public static void main(String[] args) throws Exception {
 		SistemaDeCarona sistema = new SistemaDeCarona();
 		sistema.criarUsuario("danilo", "daniloSenha", "Danilao",
