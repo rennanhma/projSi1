@@ -5,7 +5,7 @@ import java.util.UUID;
 public class Solicitacao {
 
 	private String idSessao, idCarona, ponto, idSolicitacao;
-	
+
 	public Solicitacao(String idSessao, String idCarona, String ponto) {
 		this.idSessao = idSessao;
 		this.idCarona = idCarona;

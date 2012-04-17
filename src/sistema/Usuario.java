@@ -1,6 +1,5 @@
 package sistema;
 
-
 //throw new Exception("");
 
 public class Usuario {
@@ -10,7 +9,6 @@ public class Usuario {
 	private String nome;
 	private String endereco;
 	private String email;
-	
 
 	public Usuario(String login, String senha, String nome, String endereco,
 			String email) throws Exception {
@@ -19,7 +17,7 @@ public class Usuario {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.email = email;
-		
+
 	}
 
 	public String getLogin() {
@@ -29,9 +27,9 @@ public class Usuario {
 	public void setLogin(String login) throws Exception {
 		if ((login == null) || (login.equals(""))) {
 			throw new Exception("Login inválido");
-			}else{
-				this.login = login;
-			}
+		} else {
+			this.login = login;
+		}
 	}
 
 	public String getSenha() {
@@ -65,7 +63,5 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
 
 }

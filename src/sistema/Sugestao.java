@@ -1,12 +1,16 @@
 package sistema;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class Sugestao {
 
 	
 	private String pontos , idSugestao, idSessao;
-	
+	public Map<String, String> mapaDeResposta = new HashMap<String, String>();
 	
 	public Sugestao(String pontos, String idSessao){
 		this.pontos = pontos;
@@ -44,6 +48,11 @@ public class Sugestao {
 
 	public void setIdSessao(String idSessao) {
 		this.idSessao = idSessao;
+	}
+
+
+	public void addResposta(String idResposta, String pontos) {
+		mapaDeResposta.put(idResposta, pontos);
 	}
 	
 	

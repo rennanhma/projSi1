@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 public class Carona {
 	
 	private Usuario donoDaCarona;
-	public static List<Sugestao> listaDeSugestoes = new ArrayList<Sugestao>();
+	public List<Sugestao> listaDeSugestoes = new ArrayList<Sugestao>();
 	public  List<Solicitacao> listaDeSolicitacao = new ArrayList<Solicitacao>();
 	private String origem, destino, data, hora, idDaCarona;
 	private int vagas;
