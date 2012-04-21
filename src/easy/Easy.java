@@ -78,6 +78,12 @@ public class Easy {
 			String ponto) throws Exception {
 		return sistema.solicitarVagaPontoEncontro(idSessao, idCarona, ponto);
 	}
+	
+	
+	public String solicitarVaga(String idSessao,String idCarona){
+		
+		return sistema.solicitarVaga(idSessao, idCarona);
+	}
 
 	public String getAtributoSolicitacao(String idSolicitacao, String atributo)
 			throws Exception {
@@ -87,6 +93,10 @@ public class Easy {
 	public void aceitarSolicitacaoPontoEncontro(String idSessao,
 			String idSolicitacao) throws Exception {
 		sistema.aceitarSolicitacaoPontoEncontro(idSessao, idSolicitacao);
+	}
+	
+	public void aceitarSolicitacao(String idSessao,String idSolicitacao) throws Exception{
+		 sistema.aceitarSolicitacao(idSessao, idSolicitacao);
 	}
 
 	public void desistirRequisicao(String idSessao, String idCarona,

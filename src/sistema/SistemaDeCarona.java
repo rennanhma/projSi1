@@ -58,13 +58,11 @@ public class SistemaDeCarona {
 				}
 				if (!sessaoAberta) {
 					if (buscaUsuario(login).getId() == null) {
-					  System.out.println("aqui 1");
 					  Sessao sessao = new Sessao(login, senha);
 					  listaDeSessoesAbertas.add(sessao);
 					  id = sessao.getId();
 					  buscaUsuario(login).setId(id);
 					}else{
-						System.out.println("aqui 2");
 						Sessao sessao = new Sessao(login, senha);
 						sessao.setID(buscaUsuario(login).getId());
 						listaDeSessoesAbertas.add(sessao);
@@ -84,7 +82,6 @@ public class SistemaDeCarona {
 		}
 		
 		
-		System.out.println(buscarSessaoId(id).getLogin()+" "+id);
 		
 		return id;
 		
@@ -148,7 +145,6 @@ public class SistemaDeCarona {
 			}
 			
 			if (atributo.equals("vagas")) {
-				System.out.println("aquiii");
 				saida = Integer.toString(carona.getVagas());
 			}
 			
@@ -222,7 +218,7 @@ public class SistemaDeCarona {
 	
 	
 	
-	public Carona buscaCaronaID(String idDaCarona)
+	public Carona buscaCaronaID(String idCarona)
 	{
 		
 		Iterator<Carona> itListaDeCaronas = listaDeCaronas.iterator();
@@ -230,7 +226,7 @@ public class SistemaDeCarona {
 		
 		while (itListaDeCaronas.hasNext()) {
 			  Carona carona = (Carona) itListaDeCaronas.next();
-			  if (carona.getIdDaCarona().equals(idDaCarona)) {
+			  if (carona.getIdDaCarona().equals(idCarona)) {
 				  saida = carona;
 				  break;
 				 
@@ -420,10 +416,10 @@ public class SistemaDeCarona {
 }
 	
 	
-	public Sessao buscarSessaoId(String idDaSessao) {	
+	public Sessao buscarSessaoId(String idSessao) {	
 		Sessao sessao = null;
 		for (Sessao sessao1 : listaDeSessoesAbertas) {
-			if (sessao1.getId().equals(idDaSessao)) {
+			if (sessao1.getId().equals(idSessao)) {
 				sessao = sessao1;
 				break;
 			}
@@ -549,6 +545,15 @@ public class SistemaDeCarona {
 				
 				return solicitacao.getIdSolicitacao();
 			}
+	
+	public String solicitarVaga(String idSessao,String idCarona){
+		Carona carona = buscaCaronaID(idCarona);
+		Solicitacao solicitacao = new Solicitacao(idSessao, idCarona);
+
+		carona.addSolicitacao(solicitacao);
+		
+		return solicitacao.getIdSolicitacao();
+	}
 
 	public String getAtributoSolicitacao(String idSolicitacao, String atributo) throws Exception{
 		
@@ -625,6 +630,12 @@ public class SistemaDeCarona {
 				}
 			}
 		}
+	}
+	
+	public void aceitarSolicitacao(String idSessao,String idSolicitacao) throws Exception{
+		Solicitacao solicitacao = buscaSolicitacao(idSolicitacao);
+		Sessao sessao = buscarSessaoId(idSessao);
+		// TODO
 	}
 	
 	

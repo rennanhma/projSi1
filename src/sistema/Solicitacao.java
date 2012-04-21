@@ -12,6 +12,13 @@ public class Solicitacao {
 		this.ponto = ponto;
 		this.idSolicitacao = UUID.randomUUID().toString();
 	}
+	
+	public Solicitacao(String idSessao,String idCarona){
+		this.idSessao = idSessao;
+		this.idCarona = idCarona;
+		this.idSolicitacao = UUID.randomUUID().toString();
+		
+	}
 
 	public String getIdSessao() {
 		return idSessao;
