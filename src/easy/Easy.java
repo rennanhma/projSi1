@@ -1,9 +1,5 @@
 package easy;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import sistema.*;
 
 public class Easy {
@@ -67,19 +63,19 @@ public class Easy {
 	}
 
 	public String sugerirPontoEncontro(String idSessao, String idCarona,
-			String pontos) {
+			String pontos) throws Exception {
 		return sistema.sugerirPontoEncontro(idSessao, idCarona, pontos);
 
 	}
 
 	public String responderSugestaoPontoEncontro(String idSessao,
-			String idCarona, String idSugestao, String pontos) {
+			String idCarona, String idSugestao, String pontos) throws Exception {
 		return sistema.responderSugestaoPontoEncontro(idSessao, idCarona,
 				idSugestao, pontos);
 	}
 
 	public String solicitarVagaPontoEncontro(String idSessao, String idCarona,
-			String ponto) {
+			String ponto) throws Exception {
 		return sistema.solicitarVagaPontoEncontro(idSessao, idCarona, ponto);
 	}
 

@@ -26,7 +26,7 @@ public class Carona {
 	private String origem, destino, data, hora, idDaCarona;
 	private int vagas;
 	private GregorianCalendar dataAtual, dataHoraCarona;
-	public static List<String> pontoDeEncontro = new ArrayList<String>();
+	public List<String> pontoDeEncontro = new ArrayList<String>();
 	
 	
 	
@@ -226,8 +226,9 @@ public class Carona {
 	}
 
 
-	public void rmSugestoes(Sugestao sugestao) {
-		this.listaDeSugestoes.remove(sugestao);
+	public void removeSugestao(Sugestao sugestao) {
+		  listaDeSugestoes.remove(sugestao);
+		
 		
 	}
 

@@ -28,6 +28,11 @@ public class Sessao {
 		return id;
 	}
 	
+	public String setID(String id){
+		
+		return this.id = id;
+	}
+	
 	
 
 }

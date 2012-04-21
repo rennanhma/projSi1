@@ -16,10 +16,12 @@ public class Solicitacao {
 	public String getIdSessao() {
 		return idSessao;
 	}
+	
 
 	public void setIdSessao(String idSessao) {
 		this.idSessao = idSessao;
 	}
+
 
 	public String getIdCarona() {
 		return idCarona;
