@@ -526,16 +526,6 @@ public class SistemaDeCarona {
 
 		return idResposta;
 	}
-	
-	/*public String solicitarVaga(String idSessao,String idCarona){
-		
-		Solicitacao solicitacao = new Solicitacao(idSessao, idCarona);
-		Carona carona = buscaCaronaID(idCarona);
-		carona.addSolicitacao(solicitacao);
-		
-		return null;
-		
-	}*/
 
 
 					
