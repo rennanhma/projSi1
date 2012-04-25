@@ -157,6 +157,10 @@ public class Easy {
     	
     	return sistema.getPontosEncontro(idSessao, idCarona);
     }
+    public void reviewVagaEmCarona(String idSessao, String idCarona,
+			String loginCaroneiro, String review) throws Exception {
+    	sistema.reviewVagaEmCarona(idSessao, idCarona, loginCaroneiro, review);
+    }
 
 
 }

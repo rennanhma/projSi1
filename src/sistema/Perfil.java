@@ -6,8 +6,12 @@ import java.util.List;
 public class Perfil {
 	
 	
-	private String login, nome, endereco, email, caronasSeguras, caronasNaoFuncionaram, faltasEmCaronas, presencaEmCaronas;
-	private List<String> historicoCaronas, hitoricoVagasEmCaronas;
+	private String login, nome, endereco, email;
+	int caronasSeguras;
+	int caronasNaoFuncionaram;
+	int presencaEmCaronas;
+	int faltasEmCaronas;
+	private List<String> historicoCaronas, historicoVagasEmCaronas;
 	
 	public Perfil(String nome, String endereco, String email, String login)
 	{
@@ -15,11 +19,11 @@ public class Perfil {
 		this.endereco = endereco;
 		this.email = email;
 		this.historicoCaronas = new ArrayList<String>();
-		this.hitoricoVagasEmCaronas = new ArrayList<String>();
-		this.caronasSeguras = "0";
-		this.caronasNaoFuncionaram = "0";
-		this.faltasEmCaronas = "0";
-		this.presencaEmCaronas = "0";
+		this.historicoVagasEmCaronas = new ArrayList<String>();
+		this.caronasSeguras = 0;
+		this.caronasNaoFuncionaram = 0;
+		this.faltasEmCaronas = 0;
+		this.presencaEmCaronas = 0;
 		this.login = login;
 	}
 	
@@ -34,17 +38,21 @@ public class Perfil {
 	public void adicionaHistoricoCaronas(String idCarona) {
 		this.historicoCaronas.add(idCarona);
 	}
+	
+	public void addhistoricoVagasEmCaronas(String idCarona) {
+		this.historicoVagasEmCaronas.add(idCarona);
+	}
 
 
 
 	public List<String> getHitoricoVagasEmCaronas() {
-		return hitoricoVagasEmCaronas;
+		return historicoVagasEmCaronas;
 	}
 
 
 
 	public void setHitoricoVagasEmCaronas(List<String> hitoricoVagasEmCaronas) {
-		this.hitoricoVagasEmCaronas = hitoricoVagasEmCaronas;
+		this.historicoVagasEmCaronas = hitoricoVagasEmCaronas;
 	}
 
 
@@ -86,35 +94,35 @@ public class Perfil {
 	}
 
 
-	public String getCaronasSeguras() {
+	public int getCaronasSeguras() {
 		return caronasSeguras;
 	}
 
-	public void setCaronasSeguras(String caronasSeguras) {
+	public void setCaronasSeguras(int caronasSeguras) {
 		this.caronasSeguras = caronasSeguras;
 	}
 
-	public String getCaronasNaoFuncionaram() {
+	public int getCaronasNaoFuncionaram() {
 		return caronasNaoFuncionaram;
 	}
 
-	public void setCaronasNaoFuncionaram(String caronasNaoFuncionaram) {
+	public void setCaronasNaoFuncionaram(int caronasNaoFuncionaram) {
 		this.caronasNaoFuncionaram = caronasNaoFuncionaram;
 	}
 
-	public String getFaltasEmCaronas() {
+	public int getFaltasEmCaronas() {
 		return faltasEmCaronas;
 	}
 
-	public void setFaltasEmCaronas(String faltasEmCaronas) {
+	public void setFaltasEmCaronas(int faltasEmCaronas) {
 		this.faltasEmCaronas = faltasEmCaronas;
 	}
 
-	public String getPresencaEmCaronas() {
+	public int getPresencaEmCaronas() {
 		return presencaEmCaronas;
 	}
 
-	public void setPresencaEmCaronas(String presencaEmCaronas) {
+	public void setPresencaEmCaronas(int presencaEmCaronas) {
 		this.presencaEmCaronas = presencaEmCaronas;
 	}
 

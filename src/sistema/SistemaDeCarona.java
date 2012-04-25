@@ -312,7 +312,7 @@ public class SistemaDeCarona {
 	   
 	   String login = sessao.getLogin();
 	   String idCarona = novaCarona.getIdDaCarona();
-	   adicionarCaronaNoHistorico(login, idCarona);
+	   addCaronaNoHistorico(login, idCarona);
 	   
 	   Usuario usuario = buscaUsuario(sessao.getLogin());
 	   usuario.addCarona(novaCarona);
@@ -705,6 +705,7 @@ public String localizarCarona(String idSessao, String origem,String destino) thr
 		carona.addSolicitacaoAceita(solicitacao);
 		carona.removeSolicitacao(solicitacao);
 		carona.setVagas(carona.getVagas() - 1);
+		addhistoricoVagasEmCaronas(buscarSessaoId(solicitacao.getIdSessao()).getLogin(), carona.getIdDaCarona());
 		
 		List<String> pontoDeEncontro = new ArrayList<String>();
 		if (solicitacao.getPonto() == null && carona.getPontoDeEncontro().isEmpty()) {
@@ -782,10 +783,16 @@ public String localizarCarona(String idSessao, String origem,String destino) thr
 		return retorno;
     }
     
-    public void adicionarCaronaNoHistorico(String login, String idCarona)
+    public void addCaronaNoHistorico(String login, String idCarona)
     {
     	Perfil perfil = buscaPerfil(login);
     	perfil.adicionaHistoricoCaronas(idCarona);
+    }
+    
+    public void addhistoricoVagasEmCaronas(String login, String idCarona)
+    {
+    	Perfil perfil = buscaPerfil(login);
+    	perfil.addhistoricoVagasEmCaronas(idCarona);
     }
     
     public Perfil buscaPerfil(String login)
@@ -840,21 +847,21 @@ public String getAtributoPerfil(String login, String atributo) throws Exception{
 			else resposta = historico;
 		}
 		else if(atributo.equals("historico de vagas em caronas")){
-			String historico = perfil.getHitoricoVagasEmCaronas().toString();
+			String historico = perfil.getHitoricoVagasEmCaronas().toString().replace(" ", "");
 			if(historico.equals("[]")) resposta = "";
 			else resposta = historico;
 		}
 		else if(atributo.equals("caronas seguras e tranquilas")){
-			resposta = perfil.getCaronasSeguras().toString();
+			resposta = String.valueOf(perfil.getCaronasSeguras());
 		}
 		else if(atributo.equals("caronas que não funcionaram")){
-			resposta = perfil.getCaronasNaoFuncionaram();
+			resposta = String.valueOf(perfil.getCaronasNaoFuncionaram());
 		}
 		else if(atributo.equals("faltas em vagas de caronas")){
-			resposta = perfil.getFaltasEmCaronas();
+			resposta = String.valueOf(perfil.getFaltasEmCaronas());
 		}
 		else if(atributo.equals("presenças em vagas de caronas")){
-			resposta = perfil.getPresencaEmCaronas();
+			resposta = String.valueOf(perfil.getPresencaEmCaronas());
 		}
 		return resposta;
 	}
@@ -933,12 +940,67 @@ public String getAtributoPerfil(String login, String atributo) throws Exception{
 		}
 		return pontosEncontro;
 	}
-	
-	
+
+	public void reviewVagaEmCarona(String idSessao, String idCarona,
+			String loginCaroneiro, String review) throws Exception {
+		Sessao sessao = buscarSessaoId(idSessao);
+		Carona carona = buscaCaronaID(idCarona);
+		Perfil perfil = buscaPerfil(loginCaroneiro);
+		
+		boolean taNaCarona = false; //Verifica se o caroneiro ta na carona
+		for (Solicitacao solicitacao : carona.getListaDeSolicitacaoAceitas()) {
+			if (buscarSessaoId(solicitacao.getIdSessao()).getLogin().equals(
+					loginCaroneiro)) {
+				taNaCarona = true;
+			}
+		}
+		
+		if (taNaCarona) {//Se tiver...
+
+			if (sessao.getLogin().equals(carona.getDonoDaCarona().getLogin())) {//Verifica se é o dono da carona 
+				if (review.equals("faltou")) {                                   //Para poder da Review ou nao
+					int faltas = perfil.getFaltasEmCaronas() + 1;
+					perfil.setFaltasEmCaronas(faltas);
+				} else if (review.equals("não faltou")) {
+					int presenca = perfil.getPresencaEmCaronas() + 1;
+					perfil.setPresencaEmCaronas(presenca);
+				} else {
+					throw new Exception("Opção inválida."); 
+				}
+			}
+		} else {
+			throw new Exception("Usuário não possui vaga na carona.");
+		}
+
+	}
+
 	public static void main(String[] args) throws Exception {
+		SistemaDeCarona sistema = new SistemaDeCarona();
+		//Cria os 3 Usuarios
+		sistema.criarUsuario("mark", "senham", "nomeM", "enderecoM", "emailM");
+		sistema.criarUsuario("bill", "senhaB", "nomeB", "enderecoB", "emailB");
+		sistema.criarUsuario("vader", "senhaV", "nomeV", "enderecoV", "emailV");
 		
+		String idSessaoMark = sistema.abrirSessao("mark", "senham"); //Abre Mark
+		//Cadastra 2 Caronas em Mark
+		String idCarona4 = sistema.cadastrarCarona(idSessaoMark, "origemM", "destinoM", "12/05/2012", "12:00", "3");
+		String idCarona5 = sistema.cadastrarCarona(idSessaoMark, "origemM2", "destinoM2", "12/06/2012", "12:00", "3");
 		
-	    
+		String idSessaoBill = sistema.abrirSessao("bill", "senhaB");//Abre Bill
+		//Bill Solicita vaga nas 2 em Mark
+		String solicitacao4 = sistema.solicitarVaga(idSessaoBill, idCarona4);
+		String solicitacao5 = sistema.solicitarVaga(idSessaoBill, idCarona5);
+		
+		//Mark.. aceita a solicitacao de Bill (Ta errado)
+		//Nao entra no if Vê la coloca um syso
+		sistema.aceitarSolicitacao(idSessaoMark, solicitacao4);
+		sistema.aceitarSolicitacao(idSessaoMark, solicitacao5);
+		
+		//deveria sair uma lista com o historico Carona1 Carona
+		//System.out.println(sistema.getAtributoPerfil("bill", "historico de vagas em caronas") +" aqui");
+		System.out.println(sistema.getAtributoPerfil("bill", "faltas em vagas de caronas"));
+		sistema.reviewVagaEmCarona(idSessaoMark, idCarona4, "bill", "faltou");
+		System.out.println(sistema.getAtributoPerfil("bill", "faltas em vagas de caronas"));
 	}
 
 
