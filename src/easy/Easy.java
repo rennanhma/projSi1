@@ -133,9 +133,29 @@ public class Easy {
     }
     
     
-    public List<String> getTodasCaronasUsuario(String idSessao){
+    public String getTodasCaronasUsuario(String idSessao){
     	
     	return sistema.getTodasCaronasUsuario(idSessao);
+    }
+    
+    public List<String> getSolicitacoesConfirmadas(String idSessao, String idCarona){
+    	
+    	return sistema.getSolicitacoesConfirmadas(idSessao, idCarona);
+    }
+    
+    public List<String> getSolicitacoesPendentes(String idCarona){
+    	
+    	return sistema.getSolicitacoesPendentes(idCarona);
+    }
+    
+    public List<String> getPontosSugeridos(String idSessao, String idCarona){
+    	
+    	return sistema.getPontosSugeridos(idSessao, idCarona);
+    }
+    
+    public List<String> getPontosEncontro(String idSessao, String idCarona){
+    	
+    	return sistema.getPontosEncontro(idSessao, idCarona);
     }
 
 

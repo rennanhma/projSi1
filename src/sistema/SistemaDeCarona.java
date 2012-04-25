@@ -11,7 +11,6 @@ public class SistemaDeCarona {
 	public List<Perfil> listaDePerfis = new ArrayList<Perfil>();
 	public List<Carona> listaDeCaronas = new ArrayList<Carona>();
 	public List<Sessao> listaDeSessoesAbertas = new ArrayList<Sessao>();
-	public Map<String, List<Carona>> mapaDeCaronas = new HashMap<String, List<Carona>>();
 	private boolean desistirSolicitacao;
 	
 
@@ -318,15 +317,6 @@ public class SistemaDeCarona {
 	   Usuario usuario = buscaUsuario(sessao.getLogin());
 	   usuario.addCarona(novaCarona);
 	   
-	   if (mapaDeCaronas.containsKey(idDaSessao)) {
-		   mapaDeCaronas.get(idDaSessao).add(novaCarona);
-	   }
-	   else{
-		   mapaDeCaronas.put(idDaSessao, new ArrayList<Carona>());
-		   mapaDeCaronas.get(idDaSessao).add(novaCarona);
-	   }
-
-	   
 	   return novaCarona.getIdDaCarona();
 		
 	}
@@ -335,7 +325,7 @@ public class SistemaDeCarona {
 
 
 
-	public String localizarCarona(String idDaSessao, String origem,String destino) throws Exception {
+	/*public String localizarCarona(String idDaSessao, String origem,String destino) throws Exception {
 		
         excecaoLocalizarCarona(idDaSessao, origem, destino);
 		List<String> caronasEncontradas = new ArrayList<String>();
@@ -382,6 +372,68 @@ public class SistemaDeCarona {
 					
 			
 			 }
+		
+			
+		 
+		 
+         strCaronas = caronasEncontradas.toString();
+         strCaronas = strCaronas.replace("[", "{");
+         strCaronas = strCaronas.replace("]", "}");
+         strCaronas = strCaronas.replace(" ", "");
+         
+		 return strCaronas;
+	}*/
+	
+	
+public String localizarCarona(String idSessao, String origem,String destino) throws Exception {
+		
+        excecaoLocalizarCarona(idSessao, origem, destino);
+		List<String> caronasEncontradas = new ArrayList<String>();
+		String strCaronas = null;
+		
+		if (isSessaoAberta(idSessao)) {
+			
+		
+		for (Carona carona : listaDeCaronas) {
+	 
+				
+				if (!origem.equals("") && !destino.equals("")) { // lista todas as caronas de uma determinada origem até um destino
+					
+					
+					if (carona.getDestino().equals(destino) && carona.getOrigem().equals(origem)) {
+						
+						caronasEncontradas.add(carona.getIdDaCarona());
+			
+					  }
+					}
+					
+				   if (!origem.equals("") && destino.equals("")) { //lista todas as caronas daquela origem
+						if (carona.getOrigem().equals(origem)) {
+							
+							caronasEncontradas.add(carona.getIdDaCarona());
+							
+							}
+					}
+				   
+				   if (origem.equals("") && !destino.equals("")) { // lista todas as caronas para aquele destino
+					  if (carona.getDestino().equals(destino)) {
+						  
+						  caronasEncontradas.add(carona.getIdDaCarona());
+						
+					}
+				}
+				   
+				   if (origem.equals("") && destino.equals("")) { // lista todas as caronas
+					   
+					   caronasEncontradas.add(carona.getIdDaCarona());
+					 
+				   }
+					
+					
+		}
+		
+		}
+			 
 		
 			
 		 
@@ -635,7 +687,7 @@ public class SistemaDeCarona {
 		if (sessao.getLogin().equals(carona.getDonoDaCarona().getLogin())) { //se o dono da carona bate com o id logado
 			carona.setVagas(carona.getVagas()-1); //diminiu uma vaga na carona
 			carona.listaDeSolicitacao.remove(solicitacao); // remove a solicitacao(pq ela ja foi aceita)
-			carona.pontoDeEncontro.add(solicitacao.getPonto()); // adiciona o ponto de encontro da solicitacao em uma lista de pontos de encontro para a carona
+			carona.addPontoDeEncontro(solicitacao.getPonto()); // adiciona o ponto de encontro da solicitacao em uma lista de pontos de encontro para a carona
 		    for (Sugestao sugest : carona.getSugestoes()) {
 				if (sugest.getIdSessao().equals(solicitacao.getIdSessao())) { // se a sugestao e a solicitacao foram feitas pelo mesmo usuario
 					carona.removeSugestao(sugest); //remove a sugestao da lista de sugestoes(pq ela ja foi aceita)
@@ -653,6 +705,15 @@ public class SistemaDeCarona {
 		carona.addSolicitacaoAceita(solicitacao);
 		carona.removeSolicitacao(solicitacao);
 		carona.setVagas(carona.getVagas() - 1);
+		
+		List<String> pontoDeEncontro = new ArrayList<String>();
+		if (solicitacao.getPonto() == null && carona.getPontoDeEncontro().isEmpty()) {
+			for (Sugestao sugestao : carona.getSugestoes()) {		
+			   pontoDeEncontro.add(sugestao.getPontos());
+			   
+			}
+		}
+		carona.setPontoDeEncontro(pontoDeEncontro);
 		
 
 	}
@@ -799,23 +860,93 @@ public String getAtributoPerfil(String login, String atributo) throws Exception{
 	}
     
   //OBS: esse metodo poe ser implementado usando o mapaDeCaronas existente só que é bom mudar o mapaDeCaronas pra <String,String> para isso tem que alterar alguns metodos,vou fazer isso depois.
-  public List<String> getTodasCaronasUsuario(String idSessao) {
+  public String getTodasCaronasUsuario(String idSessao) {
 	
 	List<String> todasAsCaronas = new ArrayList<String>();
 	Sessao sessao = buscarSessaoId(idSessao);
 	Usuario usuario = buscaUsuario(sessao.getLogin());
+	String strCaronas = null;
 	for (Carona carona : usuario.getListaDeCaronasDoUsuario()) {
 		todasAsCaronas.add(carona.getIdDaCarona());
 	}
-	return todasAsCaronas;
+	
+	strCaronas = todasAsCaronas.toString();
+    strCaronas = strCaronas.replace("[", "{");
+    strCaronas = strCaronas.replace("]", "}");
+    strCaronas = strCaronas.replace(" ", "");
+	
+	
+	return strCaronas;
  }
+  
+
+	public List<String> getSolicitacoesConfirmadas(String idSessao, String idCarona) {
+		
+		Sessao sessao = buscarSessaoId(idSessao);
+		List<String> resp = new ArrayList<String>();
+		Carona carona = buscaCaronaID(idCarona);
+		if (isSessaoAberta(sessao.getId())) {
+			for (Solicitacao solicitacao : carona.getListaDeSolicitacaoAceitas()) {
+				resp.add(solicitacao.getIdSolicitacao());
+			}
+		}
+	
+		return resp;
+	}
+	
+	public List<String> getSolicitacoesPendentes(String idCarona) {
+		Carona carona = buscaCaronaID(idCarona);
+		List<String> solicitacoesPendentes = new ArrayList<String>();
+       
+		for (Solicitacao solicitacao : carona.getListaDeSolicitacao()) {
+			solicitacoesPendentes.add(solicitacao.getIdSolicitacao());
+		}
+		return solicitacoesPendentes;
+	}
+	
+
+	public List<String> getPontosSugeridos(String idSessao, String idCarona) {
+		Carona carona = buscaCaronaID(idCarona);
+		Sessao sessao = buscarSessaoId(idSessao);
+        List<String> pontosSugeridos = new ArrayList<String>();
+		if (sessao.getLogin().equals(carona.getDonoDaCarona().getLogin())) { // se a sessao é do dono da carona
+			
+	     for (Sugestao sugestao : carona.getSugestoes()) {
+			pontosSugeridos.add(sugestao.getPontos());
+		}
+		
+	}
+		return pontosSugeridos;
+	}
+	
+	
+
+	public List<String> getPontosEncontro(String idSessao, String idCarona) {
+		
+		Sessao sessao = buscarSessaoId(idSessao);
+		Carona carona = buscaCaronaID(idCarona);
+		List<String> pontosEncontro = new ArrayList<String>();
+		if (sessao.getLogin().equals(carona.getDonoDaCarona().getLogin())) {
+			
+			pontosEncontro = carona.getPontoDeEncontro();
+			
+		}
+		return pontosEncontro;
+	}
+	
 	
 	public static void main(String[] args) throws Exception {
-	
 		
 		
 	    
 	}
+
+
+
+	
+	
+
+	
 
 
 

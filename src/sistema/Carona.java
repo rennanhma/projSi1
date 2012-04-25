@@ -51,6 +51,16 @@ public class Carona {
 	}
 
 
+	public List<Solicitacao> getListaDeSolicitacaoAceitas() {
+		return listaDeSolicitacaoAceitas;
+	}
+
+
+	public void setPontoDeEncontro(List<String> pontoDeEncontro) {
+		this.pontoDeEncontro = pontoDeEncontro;
+	}
+
+
 	public String getIdDaCarona() {
 		return idDaCarona;
 	}
