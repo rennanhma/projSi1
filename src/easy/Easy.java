@@ -1,5 +1,7 @@
 package easy;
 
+import java.util.List;
+
 import sistema.*;
 
 public class Easy {
@@ -118,6 +120,22 @@ public class Easy {
     public String getAtributoPerfil(String login, String atributo) throws Exception
     {
     	return sistema.getAtributoPerfil(login, atributo);
+    }
+    
+    public void reiniciarSistema(){
+    	
+    	sistema.reiniciarSistema();
+    }
+    
+    public String getCaronaUsuario(String idSessao, int indexCarona){
+    	
+    	return sistema.getCaronaUsuario(idSessao, indexCarona-1);
+    }
+    
+    
+    public List<String> getTodasCaronasUsuario(String idSessao){
+    	
+    	return sistema.getTodasCaronasUsuario(idSessao);
     }
 
 

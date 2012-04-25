@@ -1,5 +1,8 @@
 package sistema;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 //throw new Exception("");
 
@@ -11,6 +14,7 @@ public class Usuario {
 	private String endereco;
 	private String email;
 	private String id = null;
+	private List<Carona> listaDeCaronasDoUsuario = null;
 
 	public Usuario(String login, String senha, String nome, String endereco,
 			String email) throws Exception {
@@ -19,10 +23,17 @@ public class Usuario {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.email = email;
+		listaDeCaronasDoUsuario = new ArrayList<Carona>();
+		
 
 	}
 	
 	
+
+	public List<Carona> getListaDeCaronasDoUsuario() {
+		return listaDeCaronasDoUsuario;
+	}
+
 
 	public String getId() {
 		return id;
@@ -74,6 +85,12 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+
+
+	public void addCarona(Carona carona) {
+		listaDeCaronasDoUsuario.add(carona);	
 	}
 
 }

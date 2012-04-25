@@ -310,9 +310,13 @@ public class SistemaDeCarona {
 	   Carona novaCarona = new Carona(origem, destino, data, hora, vagasInt);
 	   novaCarona.setDonoDaCarona(buscaUsuario(sessao.getLogin()));
 	   listaDeCaronas.add(novaCarona);
+	   
 	   String login = sessao.getLogin();
 	   String idCarona = novaCarona.getIdDaCarona();
 	   adicionarCaronaNoHistorico(login, idCarona);
+	   
+	   Usuario usuario = buscaUsuario(sessao.getLogin());
+	   usuario.addCarona(novaCarona);
 	   
 	   if (mapaDeCaronas.containsKey(idDaSessao)) {
 		   mapaDeCaronas.get(idDaSessao).add(novaCarona);
@@ -739,6 +743,20 @@ public class SistemaDeCarona {
 		return retorno;
     }
     
+    public void reiniciarSistema(){
+    	//TODO	
+    	
+    }
+    
+    
+    public String getCaronaUsuario(String idSessao, int indexCarona) {
+		Sessao sessao = buscarSessaoId(idSessao);
+		Usuario usuario = buscaUsuario(sessao.getLogin());
+		String idCarona = usuario.getListaDeCaronasDoUsuario().get(indexCarona).getIdDaCarona();
+		
+		return idCarona;
+	}
+    
     
     
 public String getAtributoPerfil(String login, String atributo) throws Exception{
@@ -780,39 +798,28 @@ public String getAtributoPerfil(String login, String atributo) throws Exception{
 		return resposta;
 	}
     
+  //OBS: esse metodo poe ser implementado usando o mapaDeCaronas existente só que é bom mudar o mapaDeCaronas pra <String,String> para isso tem que alterar alguns metodos,vou fazer isso depois.
+  public List<String> getTodasCaronasUsuario(String idSessao) {
+	
+	List<String> todasAsCaronas = new ArrayList<String>();
+	Sessao sessao = buscarSessaoId(idSessao);
+	Usuario usuario = buscaUsuario(sessao.getLogin());
+	for (Carona carona : usuario.getListaDeCaronasDoUsuario()) {
+		todasAsCaronas.add(carona.getIdDaCarona());
+	}
+	return todasAsCaronas;
+ }
 	
 	public static void main(String[] args) throws Exception {
-		SistemaDeCarona sistema = new SistemaDeCarona();
-		sistema.criarUsuario("danilo", "daniloSenha", "Danilao", "rua do danilo", "Email@");
-		sistema.criarUsuario("ght1", "senhaght", "Ght Marques", "Rua do Ght", "ght@emai");
-		
-		String idSessaoDanilo = sistema.abrirSessao("danilo", "daniloSenha");
-		String idCarona = sistema.cadastrarCarona(idSessaoDanilo, "origem1", "destino1", "12/04/2013", "12:00", "3");
-		
-		sistema.encerrarSessao("danilo");
-		String idGht = sistema.abrirSessao("ght1", "senhaght");
-		//ADD SUGESTAO
-		String idSugestao = sistema.sugerirPontoEncontro(idGht, idCarona, "acude Vei;praça");
-		Carona carona = sistema.buscaCaronaID(idCarona);
-		//IMPRIME LISTA DE SUGESTAOS
-		System.out.println(carona.getSugestoes().toString());
-		sistema.encerrarSessao("ght1");
-		
-		String idSessaoDanilo2 = sistema.abrirSessao("danilo", "daniloSenha");
-		System.out.println();
-		sistema.responderSugestaoPontoEncontro(idSessaoDanilo2, idCarona, idSugestao, "acude Vei");
-		System.out.println(carona.getSugestoes().toString());
-		//DESISTI de Susgestao
-		sistema.desistirRequisicao(idSessaoDanilo2, idCarona, idSugestao);
-		System.out.println(carona.getSugestoes().toString());
-		System.out.println(carona.getSugestoes().toString());
-		sistema.encerrarSessao("danilo");
-		
 	
 		
 		
 	    
 	}
+
+
+
+
 	
 	
 
