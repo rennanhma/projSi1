@@ -103,5 +103,22 @@ public class Easy {
 			String idSugestao) {
 		sistema.desistirRequisicao(idSessao, idCarona, idSugestao);
 	}
+	
+	public void rejeitarSolicitacao(String idSessao, String idSolicitacao) throws Exception
+	{
+		sistema.rejeitarSolicitacao(idSessao, idSolicitacao);
+		
+	}
+	
+    public Perfil visualizarPerfil(String idSessao, String login)
+    {
+    	return sistema.visualizarPerfil(idSessao, login);
+    }
+    
+    public String getAtributoPerfil(String login, String atributo) throws Exception
+    {
+    	return sistema.getAtributoPerfil(login, atributo);
+    }
+
 
 }

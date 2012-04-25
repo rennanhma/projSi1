@@ -21,6 +21,7 @@ import java.util.regex.Matcher;
 public class Carona {
 	
 	private Usuario donoDaCarona;
+	public  List<Solicitacao> listaDeSolicitacaoAceitas = new ArrayList<Solicitacao>();
 	public List<Sugestao> listaDeSugestoes = new ArrayList<Sugestao>();
 	public  List<Solicitacao> listaDeSolicitacao = new ArrayList<Solicitacao>();
 	private String origem, destino, data, hora, idDaCarona;
@@ -219,6 +220,10 @@ public class Carona {
 		
 	}
 
+	public void addSolicitacaoAceita(Solicitacao solicitacao) {
+		this.listaDeSolicitacaoAceitas.add(solicitacao);
+		
+	}
 
 	public void addPontoDeEncontro(String pontos) {
 		this.pontoDeEncontro.add(pontos);
@@ -230,6 +235,21 @@ public class Carona {
 		  listaDeSugestoes.remove(sugestao);
 		
 		
+	}
+	
+	public void removeSolicitacao(Solicitacao solicitacao)
+	{
+		listaDeSolicitacao.remove(solicitacao);
+	}
+	
+	public void removeSolicitacaoAceita(Solicitacao solicitacao)
+	{
+		listaDeSolicitacaoAceitas.remove(solicitacao);
+	}
+	
+	public void removePontoDeEncontro(String ponto)
+	{
+		pontoDeEncontro.remove(ponto);
 	}
 
 

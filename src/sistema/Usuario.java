@@ -20,7 +20,6 @@ public class Usuario {
 		this.endereco = endereco;
 		this.email = email;
 
-
 	}
 	
 	

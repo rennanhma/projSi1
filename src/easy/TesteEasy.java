@@ -19,6 +19,7 @@ public class TesteEasy {
 	//	files.add("testes/US03.txt");
 		files.add("testes/US04.txt");
 	    files.add("testes/US05.txt");
+	    files.add("testes/US06.txt");
 
 		Easy siTeste = new Easy();
 		// Instantiate EasyAccept façade
