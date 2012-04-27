@@ -161,6 +161,9 @@ public class Easy {
 			String loginCaroneiro, String review) throws Exception {
     	sistema.reviewVagaEmCarona(idSessao, idCarona, loginCaroneiro, review);
     }
+    public void  reviewCarona(String idSessao, String idCarona, String review) throws Exception{
+    	sistema.reviewCarona(idSessao, idCarona, review);
+    }
 
 
 }
