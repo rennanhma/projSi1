@@ -1,6 +1,10 @@
 package sistema;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-import java.util.*;
+import persistencia.InterfaceXML;
+
 
 public class SistemaDeCarona {
 
@@ -35,6 +39,13 @@ public class SistemaDeCarona {
 	}
 
 	public void encerrarSistema() {
+		InterfaceXML interXML = new InterfaceXML("Caronas",listaDeCaronas);
+		interXML.saveData();
+		interXML = new InterfaceXML("Usuarios",ListaDeUsuarios);
+		interXML.saveData();
+		interXML  = new InterfaceXML("Perfis",listaDePerfis);
+		interXML.saveData();
+		
 		System.out.println("Sistema Encerrado");
 	}
 
