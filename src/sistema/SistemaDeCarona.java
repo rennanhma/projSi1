@@ -1006,9 +1006,9 @@ public String getAtributoPerfil(String login, String atributo) throws Exception{
 
 	public static void main(String[] args) throws Exception {
 		
-		SistemaDeCarona sistema = new SistemaDeCarona();
-		sistema.criarUsuario("Hudson", "123", "Hudson Daniel", "edesio silva", "hudson@gmail.com");
-		sistema.criarUsuario("Daniel", "1234", "Daniel Santna", "edesil silva", "12345");
+		/*SistemaDeCarona sistema = new SistemaDeCarona();
+		sistema.criarUsuario("Hudson", "123", "Hudson Daniel", "rua", "hudson@gmail.com");
+		sistema.criarUsuario("Daniel", "1234", "Hudson2", "rua", "12345");
 		String idSessao = sistema.abrirSessao("Hudson", "123");
 		sistema.cadastrarCarona(idSessao, "Campina", "joao pessoa", "25/02/2013", "10:00", "3");
 		String idCarona = sistema.cadastrarCarona(idSessao, "joao pessoa", "campina", "27/02/2013", "11:00", "3");
@@ -1023,8 +1023,9 @@ public String getAtributoPerfil(String login, String atributo) throws Exception{
 		
 		sistema.encerrarSistema();
 		sistema.reiniciarSistema();
+		sistema.zerarSistema();*/
 		
-		System.out.println(sistema.listaDePerfis.get(0).getHistoricoCaronas().get(0));
+	//	System.out.println(sistema.listaDePerfis.get(0).getHistoricoCaronas().get(0));
 		
 	//	CriarXML cXMl = new CriarXML();
      //    cXMl.lerXMLUsuarios(sistema.ListaDeUsuarios,sistema.listaDeCaronas);
