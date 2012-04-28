@@ -11,11 +11,7 @@ import java.io.IOException;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-/**
-á*
-á* @author Arthur Freire, Leandro Soares, Marcos Rodrigues, Natasha Bezerra, Tales Tenorio
-á*
-á*/
+
 public class Serializador<T> {
 
  private XStream xStream;
@@ -28,17 +24,12 @@ public class Serializador<T> {
           new File(new File(".").getCanonicalPath() + FILE_SEPARATOR + "banco").mkdirs();
           this.diretorio = new File(".").getCanonicalPath() + FILE_SEPARATOR + "banco" + FILE_SEPARATOR;
         } catch (IOException e) {
-          System.out.println("Erro na persistÛncia!");
+          System.out.println("Erro na persistencia!");
           e.printStackTrace();
       }
     }
 
- /**
-* MÚtodo que escreve uma coleþÒo genÚricas em um arquivo XML.
-*
-* @throws FileNotFoundException
- ExceþÒo que Ú lanþada se nÒo houver arquivo.
-*/
+
       public void salvar(String nomeArquivo, T collection) {
          try {
              new File(diretorio).mkdir();
@@ -51,12 +42,6 @@ public class Serializador<T> {
         }
     }
 
- /**
-* MÚtodo que ler uma coleþÒo genÚrica de um arquivo XML.
-*
-* @throws FileNotFoundException
- ExceþÒo que Ú lanþado se nÒo houver arquivo.
-*/
         @SuppressWarnings("unchecked")
         public T recuperar(String nomeArquivo) {
             try {
