@@ -4,7 +4,7 @@ import java.util.List;
 
 import sistema.*;
 
-public class Easy {
+public class Fachada {
 	SistemaDeCarona sistema = new SistemaDeCarona();
 
 	public void zerarSistema() {

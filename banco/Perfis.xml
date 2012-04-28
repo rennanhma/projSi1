@@ -1,1 +1,44 @@
-<list/>
+<list>
+  <sistema.Perfil>
+    <login>mark</login>
+    <nome>Mark Zuckerberg</nome>
+    <endereco>Palo Alto, California</endereco>
+    <email>mark@facebook.com</email>
+    <caronasSeguras>0</caronasSeguras>
+    <caronasNaoFuncionaram>0</caronasNaoFuncionaram>
+    <presencaEmCaronas>0</presencaEmCaronas>
+    <faltasEmCaronas>0</faltasEmCaronas>
+    <historicoCaronas>
+      <string>7274befd-6ed2-4ec7-9f94-1e81ca4fb5e5</string>
+      <string>96854732-8fb7-47b4-8da4-a673d1ffaf26</string>
+    </historicoCaronas>
+    <historicoVagasEmCaronas/>
+  </sistema.Perfil>
+  <sistema.Perfil>
+    <login>bill</login>
+    <nome>William Henry Gates III</nome>
+    <endereco>Medina, Washington</endereco>
+    <email>billzin@gmail.com</email>
+    <caronasSeguras>0</caronasSeguras>
+    <caronasNaoFuncionaram>0</caronasNaoFuncionaram>
+    <presencaEmCaronas>1</presencaEmCaronas>
+    <faltasEmCaronas>1</faltasEmCaronas>
+    <historicoCaronas/>
+    <historicoVagasEmCaronas>
+      <string>7274befd-6ed2-4ec7-9f94-1e81ca4fb5e5</string>
+      <string>96854732-8fb7-47b4-8da4-a673d1ffaf26</string>
+    </historicoVagasEmCaronas>
+  </sistema.Perfil>
+  <sistema.Perfil>
+    <login>vader</login>
+    <nome>Anakin Skywalker</nome>
+    <endereco>Death Star I</endereco>
+    <email>darthvader@empire.com</email>
+    <caronasSeguras>0</caronasSeguras>
+    <caronasNaoFuncionaram>0</caronasNaoFuncionaram>
+    <presencaEmCaronas>0</presencaEmCaronas>
+    <faltasEmCaronas>0</faltasEmCaronas>
+    <historicoCaronas/>
+    <historicoVagasEmCaronas/>
+  </sistema.Perfil>
+</list>

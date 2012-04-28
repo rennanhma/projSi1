@@ -5,7 +5,7 @@ import java.util.List;
 
 import easyaccept.EasyAcceptFacade;
 
-public class TesteEasy {
+public class TesteFachada {
 
 	/**
 	 * @param args
@@ -23,7 +23,7 @@ public class TesteEasy {
 		files.add("testes/US07.txt");
 		files.add("testes/US08.txt");
 
-		Easy siTeste = new Easy();
+		Fachada siTeste = new Fachada();
 		// Instantiate EasyAccept façade
 		EasyAcceptFacade eaFacade = new EasyAcceptFacade(siTeste, files);
 
