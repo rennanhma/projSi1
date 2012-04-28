@@ -122,7 +122,7 @@ public class Easy {
     	return sistema.getAtributoPerfil(login, atributo);
     }
     
-    public void reiniciarSistema(){
+    public void reiniciarSistema() throws Exception{
     	
     	sistema.reiniciarSistema();
     }
@@ -160,9 +160,6 @@ public class Easy {
     public void reviewVagaEmCarona(String idSessao, String idCarona,
 			String loginCaroneiro, String review) throws Exception {
     	sistema.reviewVagaEmCarona(idSessao, idCarona, loginCaroneiro, review);
-    }
-    public void  reviewCarona(String idSessao, String idCarona, String review) throws Exception{
-    	sistema.reviewCarona(idSessao, idCarona, review);
     }
 
 

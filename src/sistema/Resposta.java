@@ -1,12 +1,14 @@
 package sistema;
 
+import java.util.UUID;
+
 public class Resposta {
 	
 	public String idResposta,pontos;
 	
-	public Resposta(String idResposta,String pontos){
-		this.idResposta = idResposta;
+	public Resposta(String pontos){
 		this.pontos = pontos;
+		idResposta = UUID.randomUUID().toString();	
 	}
 
 	public String getIdResposta() {
