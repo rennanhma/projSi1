@@ -112,7 +112,7 @@ public class Fachada {
 		
 	}
 	
-    public Perfil visualizarPerfil(String idSessao, String login)
+    public Perfil visualizarPerfil(String idSessao, String login) throws Exception
     {
     	return sistema.visualizarPerfil(idSessao, login);
     }

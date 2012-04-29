@@ -1,9 +1,14 @@
 package persistencia;
 
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
+import javax.xml.crypto.XMLCryptoContext;
 
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
@@ -184,14 +189,13 @@ public class CriarXML {
 		}
 		
 
-		
-
+    
 		Document arquivoUsuario = new Document(todosOsUsuarios);
-		
 		XMLOutputter xout = new XMLOutputter();
+
 		try {
 			FileWriter arquivo = new FileWriter(new File("Usuarios.xml"));
-			xout.output(arquivoUsuario,arquivo);
+	    	xout.output(arquivoUsuario,arquivo);
 			} catch (IOException e) {
 			e.printStackTrace();
 			}

@@ -6,6 +6,7 @@ import org.junit.*;
 
 import sistema.Carona;
 import sistema.SistemaDeCarona;
+import sistema.Solicitacao;
 import sistema.Sugestao;
 
 public class TesteSistema {
@@ -160,11 +161,21 @@ public class TesteSistema {
 		assertEquals("Joao Pessoa",
 				sistema.getAtributoCarona(idCarona4, "destino"));
 		assertEquals("3", sistema.getAtributoCarona(idCarona4, "vagas"));
-		/*
-		 * [BUGADO!] da arrayOutOfRange
-		 */
-		// assertEquals("", sistema.getAtributoCarona(idCarona4,
-		// "Ponto de Encontro"));
+	
+		 assertEquals("", sistema.getAtributoCarona(idCarona4,
+		 "Ponto de Encontro"));
+		 
+		 Carona carona = sistema.buscaCaronaID(idCarona4);
+		 carona.addPontoDeEncontro("parque da crianca");
+		 
+		 assertEquals("parque da crianca", sistema.getAtributoCarona(idCarona4,
+				 "Ponto de Encontro"));
+		 
+		 carona.addPontoDeEncontro("acude");
+		 
+		 assertEquals("parque da crianca, acude", sistema.getAtributoCarona(idCarona4,
+				 "Ponto de Encontro"));
+		 
 	}
 
 	@Test
@@ -174,7 +185,7 @@ public class TesteSistema {
 	}
 
 	@Test
-	public void testaGetTrajod() throws Exception {
+	public void testaGetTrajeto() throws Exception {
 		assertEquals("Campina Grande - Joao Pessoa",
 				sistema.getTrajeto(idCarona4));
 		try {
@@ -233,18 +244,15 @@ public class TesteSistema {
 
 	@Test
 	public void testaSolicitarVagaPontoEncontro() throws Exception {
-		/*
-		 * BUG Se eu Sugiro Acude.... e o dona da carona responde Parque
-		 * Crianca... Da Ponto Inválido se eu quiser Parque Crianca.
-		 * 
-		 * e ele pode solicitar vaga em acude tranquilo que é um ponto sugerido
-		 * nao é um ponto aceito.. nao entendi
+	    /*
+		  e ele pode solicitar vaga em acude tranquilo que é um ponto sugerido
+		  nao é um ponto aceito.. nao entendi
 		 */
 		String idSugestao = sistema.sugerirPontoEncontro(sessaoBill, idCarona4,
 				"acude");
 		sistema.responderSugestaoPontoEncontro(sessaoMark, idCarona4,
 				idSugestao, "Parque Crianca");
-		sistema.solicitarVagaPontoEncontro(sessaoBill, idCarona4, "acude");
+		sistema.solicitarVagaPontoEncontro(sessaoBill, idCarona4, "Parque Crianca");
 	}
 
 	@Test
@@ -270,18 +278,21 @@ public class TesteSistema {
 		/*
 		 * [BUG] como eu seto o ponto de encontro?
 		 */
+		Solicitacao solicitacao = sistema.buscaSolicitacao(idSolicitacao);
+		
 		assertEquals(null, sistema.getAtributoSolicitacao(idSolicitacao,
 				"Ponto de Encontro"));
+		
+		solicitacao.setPonto("Acude");
+		
+		assertEquals(null, sistema.getAtributoSolicitacao(idSolicitacao,
+				"Acude"));
 
 	}
 
 	@Test
 	public void testaAceitarSolicitacaoPontoEncontro() throws Exception {
-		/*
-		 * [BUG] quando entra no metodo 
-		 * ele vai buscar a solicitacao e não acha ...
-		 * [Nao entendi como faz p/ aceitarSolicitacaoPontoEncontro()];
-		 */
+	
 		String idSugestao = sistema.sugerirPontoEncontro(sessaoBill, idCarona4, "acude");
 		sistema.responderSugestaoPontoEncontro(sessaoMark, idCarona4, idSugestao, "acude");
 		String idSolicitacao = sistema.solicitarVagaPontoEncontro(sessaoBill, idCarona4, "acude");

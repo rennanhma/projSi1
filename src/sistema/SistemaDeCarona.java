@@ -44,6 +44,10 @@ public class SistemaDeCarona {
 		cXML.criaXMLUsuarios(listaDeUsuarios);
 		InterfaceXML interXML = new InterfaceXML("Perfis", listaDePerfis);
 		interXML.saveData();
+		interXML = new InterfaceXML("Usuarios", listaDeUsuarios);
+		interXML.saveData();
+		interXML = new InterfaceXML("Caronas", listaDeCaronas);
+		interXML.saveData();
 
 		System.out.println("Sistema Encerrado");
 	}
@@ -142,7 +146,7 @@ public class SistemaDeCarona {
 
 	public String getAtributoCarona(String idDaCarona, String atributo)
 			throws Exception {
-		String saida = null;
+		String saida = "";
 		excecaoDeAtributosCaronaInvalidos(idDaCarona, atributo);
 
 		Carona carona = buscaCaronaID(idDaCarona);
@@ -162,7 +166,14 @@ public class SistemaDeCarona {
 		}
 
 		if (atributo.equals("Ponto de Encontro")) {
-			saida = carona.getPontoDeEncontro().get(0);
+			if (!carona.getPontoDeEncontro().isEmpty()) {
+				saida = carona.getPontoDeEncontro().toString();
+                 saida = saida.replace("[", "");
+                 saida = saida.replace("]", "");
+		
+
+			}
+			
 		}
 
 		// aceita o primeiro que achar e depois sai.
@@ -206,11 +217,11 @@ public class SistemaDeCarona {
 			throw new Exception("Destino inválido");
 		}
 
-		if (data == null || data.equals("") || !Carona.isDataValida(data)) {
+		if (data == null || data.equals("") || !auxiliar.TrataDatas.isDataValida(data)) {
 			throw new Exception("Data inválida");
 		}
 
-		if (hora == null || hora.equals("") || !Carona.horaValida(hora)) {
+		if (hora == null || hora.equals("") || !auxiliar.TrataDatas.horaValida(hora)) {
 			throw new Exception("Hora inválida");
 		}
 
@@ -565,35 +576,16 @@ public class SistemaDeCarona {
 		Carona carona = buscaCaronaID(idCarona);
 		excecaoResponderPontoDeEncontro(pontos);
 
-		if (sessao.getLogin().equals(carona.getDonoDaCarona().getLogin())) { // verifica
-																				// se
-																				// o
-																				// login
-																				// de
-																				// quem
-																				// ta
-																				// logado
-																				// eh
-																				// igual
-																				// ao
-																				// do
-																				// dono
-																				// da
-																				// carona
+		if (sessao.getLogin().equals(carona.getDonoDaCarona().getLogin())) { // verifica se o login de quem ta logado eh igual ao do dono da carona
+																		
 			for (Sugestao sugestao : carona.getSugestoes()) {
-				if (sugestao.getIdSugestao().equals(idSugestao)) { // verifica
-																	// se a
-																	// sugestao
-																	// eh igual
-																	// a que eu
-																	// procuro
-
+				if (sugestao.getIdSugestao().equals(idSugestao)) { // verificase a sugestao eh igual a que eu procuro
+																
 					Resposta resp = new Resposta(pontos); // cria uma resposta
 					idResposta = resp.getIdResposta();
-					// sugestao.addResposta(sugestao, resp);
-					sugestao.addResposta(resp); // adiciona em um mapa a
-												// sugestao e a resposta dessa
-												// sugestao
+					sugestao.addResposta(resp); // adiciona em uma lista a resposta dessa sugestao
+					
+										
 				}
 
 			}
@@ -610,7 +602,7 @@ public class SistemaDeCarona {
 		excecaoDesistirSolicitacao(desistirSolicitacao);
 		Carona carona = buscaCaronaID(idCarona);
 		Solicitacao solicitacao = new Solicitacao(idSessao, idCarona, ponto);
-		excecaoSolicitacao(ponto, carona);
+		excecaoSolicitacao(ponto,carona);
 
 		for (Sugestao sugestao : carona.getSugestoes()) {
 			for (Resposta resposta : sugestao.getlistaDeResposta()) {
@@ -699,52 +691,23 @@ public class SistemaDeCarona {
 		return sugestaoEncontrada;
 	}
 
-	public void aceitarSolicitacaoPontoEncontro(String idSessao,
-			String idSolicitacao) throws Exception {
+	public void aceitarSolicitacaoPontoEncontro(String idSessao,String idSolicitacao) throws Exception {
 		Solicitacao solicitacao = buscaSolicitacao(idSolicitacao);
 		Sessao sessao = buscarSessaoId(idSessao);
 		Carona carona = buscaCaronaID(solicitacao.getIdCarona());
 
-		if (sessao.getLogin().equals(carona.getDonoDaCarona().getLogin())) { // se
-																				// o
-																				// dono
-																				// da
-																				// carona
-																				// bate
-																				// com
-																				// o
-																				// id
-																				// logado
-			carona.setVagas(carona.getVagas() - 1); // diminiu uma vaga na
-													// carona
-			carona.listaDeSolicitacao.remove(solicitacao); // remove a
-															// solicitacao(pq
-															// ela ja foi
-															// aceita)
-			carona.addPontoDeEncontro(solicitacao.getPonto()); // adiciona o
-																// ponto de
-																// encontro da
-																// solicitacao
-																// em uma lista
-																// de pontos de
-																// encontro para
-																// a carona
+		if (sessao.getLogin().equals(carona.getDonoDaCarona().getLogin())) { // se o dono da carona bate com o id logado
+																		      
+			carona.setVagas(carona.getVagas() - 1); // diminiu uma vaga na carona
+													
+			carona.removeSolicitacao(solicitacao); // remove a solicitacao porque ja foi aceita
+			carona.addPontoDeEncontro(solicitacao.getPonto()); // adiciona o ponto de encontro da solicitacao em uma lista de pontos de encontro para a carona
+																
 			for (Sugestao sugest : carona.getSugestoes()) {
-				if (sugest.getIdSessao().equals(solicitacao.getIdSessao())) { // se
-																				// a
-																				// sugestao
-																				// e
-																				// a
-																				// solicitacao
-																				// foram
-																				// feitas
-																				// pelo
-																				// mesmo
-																				// usuario
-					carona.removeSugestao(sugest); // remove a sugestao da lista
-													// de sugestoes(pq ela ja
-													// foi aceita)
-
+				if (sugest.getIdSessao().equals(solicitacao.getIdSessao())) { // se a sugestao e a solicitacao foram feitas pelo mesmo usuario
+				 														
+				 carona.removeSugestao(sugest); // remove a sugestao da lista de sugestoes porque ela ja foi aceita											
+                 break;
 				}
 			}
 		}
@@ -815,24 +778,34 @@ public class SistemaDeCarona {
 		if (pontos.equals("") || pontos == null) {
 			throw new Exception("Ponto Inválido");
 		}
-		;
+		
 
 	}
 
-	public void excecaoSolicitacao(String ponto, Carona carona)
-			throws Exception {
+	public void excecaoSolicitacao(String ponto, Carona carona)throws Exception {
+		boolean pontoValido = false;
 		for (Sugestao sugest : carona.getSugestoes()) {
-			if (!sugest.getPontos().contains(ponto)) {
-				throw new Exception("Ponto Inválido");
-			}
+			for (Resposta resposta : sugest.getlistaDeResposta()) {
+			
+			   if (resposta.getPontos().contains(ponto)) {
+				   pontoValido = true;
+				   break;
+				
+			 }
+		  }
+		}
+		if (!pontoValido) {
+			throw new Exception("Ponto Inválido");
 		}
 	}
 
-	public Perfil visualizarPerfil(String idSessao, String login) {
+	public Perfil visualizarPerfil(String idSessao, String login) throws Exception {
 		Perfil retorno = null;
 		Sessao sessao = buscarSessaoId(idSessao);
 		if (sessao.getLogin().equals(login)) {
 			retorno = buscaPerfil(login);
+		}else{
+			throw new Exception("Login inválido");
 		}
 		return retorno;
 	}
@@ -864,9 +837,14 @@ public class SistemaDeCarona {
 	}
 
 	public void reiniciarSistema() throws Exception {
-		CriarXML cXml = new CriarXML();
-		cXml.lerXMLUsuarios(listaDeUsuarios, listaDeCaronas);
+	//	CriarXML cXml = new CriarXML();
+	//	cXml.lerXMLUsuarios(listaDeUsuarios, listaDeCaronas);
+		
 		InterfaceXML interXML = new InterfaceXML("Perfis", listaDePerfis);
+		interXML.loadData();
+		interXML = new InterfaceXML("Usuarios", listaDeUsuarios);
+		interXML.loadData();
+		interXML = new InterfaceXML("Caronas", listaDeCaronas);
 		interXML.loadData();
 
 	}
@@ -1042,40 +1020,38 @@ public class SistemaDeCarona {
 		listaDeSessoesAbertas.clear();
 		listaDeUsuarios.clear();
 		listaDePerfis.clear();
-		encerrarSistema();
+	//	encerrarSistema();
 
 	}
 
 	public static void main(String[] args) throws Exception {
 
-		/*
-		 * SistemaDeCarona sistema = new SistemaDeCarona();
-		 * sistema.criarUsuario("Hudson", "123", "Hudson Daniel", "rua",
-		 * "hudson@gmail.com"); sistema.criarUsuario("Daniel", "1234",
-		 * "Hudson2", "rua", "12345"); String idSessao =
-		 * sistema.abrirSessao("Hudson", "123");
-		 * sistema.cadastrarCarona(idSessao, "Campina", "joao pessoa",
-		 * "25/02/2013", "10:00", "3"); String idCarona =
-		 * sistema.cadastrarCarona(idSessao, "joao pessoa", "campina",
-		 * "27/02/2013", "11:00", "3"); String idSugestao =
-		 * sistema.sugerirPontoEncontro(idSessao, idCarona, "praca");
-		 * sistema.responderSugestaoPontoEncontro(idSessao, idCarona,
-		 * idSugestao, "acude"); Carona carona =
-		 * sistema.buscaCaronaID(idCarona);
-		 * 
-		 * carona.addPontoDeEncontro("acude");
-		 * carona.addPontoDeEncontro("praca");
-		 * 
-		 * 
-		 * 
-		 * sistema.encerrarSistema(); sistema.reiniciarSistema();
-		 * sistema.zerarSistema();
-		 */
+		
+		/*  SistemaDeCarona sistema = new SistemaDeCarona();
+		  sistema.criarUsuario("Hudson", "123", "Hudson Daniel", "rua","hudson@gmail.com"); 
+		  sistema.criarUsuario("Daniel", "1234","Hudson2", "rua", "12345"); 
+          String idSessao =sistema.abrirSessao("Hudson", "123");
+		  sistema.cadastrarCarona(idSessao, "Campina", "joao pessoa", "25/02/2013", "10:00", "3"); 
+		  String idCarona = sistema.cadastrarCarona(idSessao, "joao pessoa", "campina","27/02/2013", "11:00", "3"); 
+		  String idSugestao = sistema.sugerirPontoEncontro(idSessao, idCarona, "praca");
+		  sistema.responderSugestaoPontoEncontro(idSessao, idCarona,idSugestao, "acude"); 
+		  Carona carona = sistema.buscaCaronaID(idCarona);
+		  
+		  carona.addPontoDeEncontro("acude");
+		  carona.addPontoDeEncontro("praca");*/
+		 
+		
+		 
+		 /* sistema.encerrarSistema(); 
+		  sistema.reiniciarSistema();
+		  sistema.zerarSistema();*/
+		 
 
 		// System.out.println(sistema.listaDePerfis.get(0).getHistoricoCaronas().get(0));
-
-		// CriarXML cXMl = new CriarXML();
-		// cXMl.lerXMLUsuarios(sistema.ListaDeUsuarios,sistema.listaDeCaronas);
+		
+	//	 CriarXML cXMl = new CriarXML();
+	//	 cXMl.criaXMLUsuarios(sistema.listaDeUsuarios);
+		
 		// System.out.println(sistema.ListaDeUsuarios.get(0).getListaDeCaronasDoUsuario().get(1).getSugestoes().get(0).getlistaDeResposta().get(0).getPontos());
 		// System.out.println("tamanho da lista de carona: "+sistema.listaDeCaronas.size());
 
