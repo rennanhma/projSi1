@@ -1,5 +1,5 @@
 <list>
-  <sistema.Perfil>
+  <sistemadecaronas.projSi1.sistema.Perfil>
     <login>mark</login>
     <nome>Mark Zuckerberg</nome>
     <endereco>Palo Alto, California</endereco>
@@ -9,12 +9,12 @@
     <presencaEmCaronas>0</presencaEmCaronas>
     <faltasEmCaronas>0</faltasEmCaronas>
     <historicoCaronas>
-      <string>7274befd-6ed2-4ec7-9f94-1e81ca4fb5e5</string>
-      <string>96854732-8fb7-47b4-8da4-a673d1ffaf26</string>
+      <string>d25667c0-0abb-4899-8105-c9edf103d1fe</string>
+      <string>7bbb3fd5-0892-45d6-9ef0-70110531e487</string>
     </historicoCaronas>
     <historicoVagasEmCaronas/>
-  </sistema.Perfil>
-  <sistema.Perfil>
+  </sistemadecaronas.projSi1.sistema.Perfil>
+  <sistemadecaronas.projSi1.sistema.Perfil>
     <login>bill</login>
     <nome>William Henry Gates III</nome>
     <endereco>Medina, Washington</endereco>
@@ -25,11 +25,11 @@
     <faltasEmCaronas>1</faltasEmCaronas>
     <historicoCaronas/>
     <historicoVagasEmCaronas>
-      <string>7274befd-6ed2-4ec7-9f94-1e81ca4fb5e5</string>
-      <string>96854732-8fb7-47b4-8da4-a673d1ffaf26</string>
+      <string>d25667c0-0abb-4899-8105-c9edf103d1fe</string>
+      <string>7bbb3fd5-0892-45d6-9ef0-70110531e487</string>
     </historicoVagasEmCaronas>
-  </sistema.Perfil>
-  <sistema.Perfil>
+  </sistemadecaronas.projSi1.sistema.Perfil>
+  <sistemadecaronas.projSi1.sistema.Perfil>
     <login>vader</login>
     <nome>Anakin Skywalker</nome>
     <endereco>Death Star I</endereco>
@@ -40,5 +40,5 @@
     <faltasEmCaronas>0</faltasEmCaronas>
     <historicoCaronas/>
     <historicoVagasEmCaronas/>
-  </sistema.Perfil>
+  </sistemadecaronas.projSi1.sistema.Perfil>
 </list>
