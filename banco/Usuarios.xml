@@ -1,0 +1,68 @@
+<list>
+  <sistemadecaronas.projSi1.sistema.Usuario>
+    <login>mark</login>
+    <senha>m@rk</senha>
+    <nome>Mark Zuckerberg</nome>
+    <endereco>Palo Alto, California</endereco>
+    <email>mark@facebook.com</email>
+    <id>3ecb5f02-b005-4c84-ac55-426703f484ba</id>
+    <listaDeCaronasDoUsuario>
+      <sistemadecaronas.projSi1.sistema.Carona>
+        <donoDaCarona reference="../../.."/>
+        <listaDeSolicitacaoAceitas>
+          <sistemadecaronas.projSi1.sistema.Solicitacao>
+            <idSessao>06b1fe79-9f19-41f3-8339-19cce24beda2</idSessao>
+            <idCarona>d25667c0-0abb-4899-8105-c9edf103d1fe</idCarona>
+            <idSolicitacao>71696c63-1939-442b-ad07-17163eb5a0c3</idSolicitacao>
+          </sistemadecaronas.projSi1.sistema.Solicitacao>
+        </listaDeSolicitacaoAceitas>
+        <listaDeSugestoes/>
+        <listaDeSolicitacao/>
+        <origem>Campina Grande</origem>
+        <destino>João Pessoa</destino>
+        <data>02/06/2012</data>
+        <hora>12:00</hora>
+        <idDaCarona>d25667c0-0abb-4899-8105-c9edf103d1fe</idDaCarona>
+        <vagas>2</vagas>
+        <pontoDeEncontro/>
+      </sistemadecaronas.projSi1.sistema.Carona>
+      <sistemadecaronas.projSi1.sistema.Carona>
+        <donoDaCarona reference="../../.."/>
+        <listaDeSolicitacaoAceitas>
+          <sistemadecaronas.projSi1.sistema.Solicitacao>
+            <idSessao>06b1fe79-9f19-41f3-8339-19cce24beda2</idSessao>
+            <idCarona>7bbb3fd5-0892-45d6-9ef0-70110531e487</idCarona>
+            <idSolicitacao>24913be2-17c9-4ca5-822d-6213c655732a</idSolicitacao>
+          </sistemadecaronas.projSi1.sistema.Solicitacao>
+        </listaDeSolicitacaoAceitas>
+        <listaDeSugestoes/>
+        <listaDeSolicitacao/>
+        <origem>Campina Grande</origem>
+        <destino>João Pessoa</destino>
+        <data>04/06/2012</data>
+        <hora>16:00</hora>
+        <idDaCarona>7bbb3fd5-0892-45d6-9ef0-70110531e487</idDaCarona>
+        <vagas>1</vagas>
+        <pontoDeEncontro/>
+      </sistemadecaronas.projSi1.sistema.Carona>
+    </listaDeCaronasDoUsuario>
+  </sistemadecaronas.projSi1.sistema.Usuario>
+  <sistemadecaronas.projSi1.sistema.Usuario>
+    <login>bill</login>
+    <senha>bilz@o</senha>
+    <nome>William Henry Gates III</nome>
+    <endereco>Medina, Washington</endereco>
+    <email>billzin@gmail.com</email>
+    <id>06b1fe79-9f19-41f3-8339-19cce24beda2</id>
+    <listaDeCaronasDoUsuario/>
+  </sistemadecaronas.projSi1.sistema.Usuario>
+  <sistemadecaronas.projSi1.sistema.Usuario>
+    <login>vader</login>
+    <senha>d4rth</senha>
+    <nome>Anakin Skywalker</nome>
+    <endereco>Death Star I</endereco>
+    <email>darthvader@empire.com</email>
+    <id>45e4c958-577e-44c0-9db8-d5fd2b5dcec1</id>
+    <listaDeCaronasDoUsuario/>
+  </sistemadecaronas.projSi1.sistema.Usuario>
+</list>
