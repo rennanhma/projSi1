@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import sistemadecaronas.projSi1.auxiliar.TrataDatas;
 import sistemadecaronas.projSi1.persistencia.CriarXML;
 import sistemadecaronas.projSi1.persistencia.InterfaceXML;
 
@@ -220,11 +221,11 @@ public class SistemaDeCarona {
 			throw new Exception("Destino inválido");
 		}
 	//	!auxiliar.TrataDatas.isDataValida(data)
-		if (data == null || data.equals("")) {
+		if (data == null || data.equals("") || !TrataDatas.isDataValida(data)) {
 			throw new Exception("Data inválida");
 		}
 //!auxiliar.TrataDatas.horaValida(hora)
-		if (hora == null || hora.equals("")) {
+		if (hora == null || hora.equals("") || !TrataDatas.horaValida(hora)) {
 			throw new Exception("Hora inválida");
 		}
 
